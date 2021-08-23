@@ -1,5 +1,5 @@
 from typing_extensions import runtime
-from math import sqrt, cos, sin, tan, atan, exp, pi
+from math import sqrt, cos, sin, tan, atan, exp, pi, log
 from manim import *
 
 class Bisection(MovingCameraScene):
@@ -57,6 +57,99 @@ class Bisection(MovingCameraScene):
 
         self.play(ReplacementTransform(new_axes, new_new_axes), self.camera.frame.animate.scale(0.5).move_to(axes.coords_to_point(1.5, 0)))
 
-        brace = BraceBetweenPoints(axes.coords_to_point(1, 0), axes.coords_to_point(2, 0))
+        line_1 = Line(axes.coords_to_point(1, -0.25), axes.coords_to_point(1, 0.25), stroke_width = 0.5).set_color(YELLOW)
+        line_2 = Line(axes.coords_to_point(2, -0.25), axes.coords_to_point(2, 0.25), stroke_width = 0.5).set_color(YELLOW)
 
-        self.play(Create(brace))
+        self.play(Create(line_1), Create(line_2))
+
+        mid_line = Line(axes.coords_to_point(1.5, -0.25), axes.coords_to_point(1.5, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(ReplacementTransform(line_1, mid_line), ReplacementTransform(line_2, mid_line))
+
+        line_2 = Line(axes.coords_to_point(2, -0.25), axes.coords_to_point(2, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(Create(line_2))
+
+        # line_3 = Line(axes.coords_to_point(2, -0.25), axes.coords_to_point(2, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        # self.play(Create(line_3))
+
+        mid_line_1 = Line(axes.coords_to_point(1.75, -0.25), axes.coords_to_point(1.75, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(ReplacementTransform(line_2, mid_line_1), ReplacementTransform(mid_line, mid_line_1))
+
+        mid_line = Line(axes.coords_to_point(1.5, -0.25), axes.coords_to_point(1.5, 0.25), stroke_width = 0.5).set_color(YELLOW)
+        
+        self.play(Create(mid_line))
+
+        mid_line_2 = Line(axes.coords_to_point(1.625, -0.25), axes.coords_to_point(1.625, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(ReplacementTransform(mid_line, mid_line_2), ReplacementTransform(mid_line_1, mid_line_2))
+
+        mid_line = Line(axes.coords_to_point(1.5, -0.25), axes.coords_to_point(1.5, 0.25), stroke_width = 0.5).set_color(YELLOW)
+        
+        self.play(Create(mid_line))
+
+        mid_line_3 = Line(axes.coords_to_point(1.5675, -0.25), axes.coords_to_point(1.5675, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(ReplacementTransform(mid_line, mid_line_3), ReplacementTransform(mid_line_2, mid_line_3))
+
+        self.play(self.camera.frame.animate.scale(4.0).move_to(axes.coords_to_point(0, 0)), Uncreate(mid_line_3))
+
+        self.play(Uncreate(sin_graph), Uncreate(zero_1), Uncreate(zero_2), Uncreate(zero_3))
+
+
+        a = ValueTracker(0.1)
+
+        ex_graph = axes.get_graph(lambda x : exp(-x) - a.get_value(), stroke_width=1)
+
+        ex_group = VGroup(ex_graph, Dot(axes.coords_to_point(-log(a.get_value()), 0), radius=0.015))
+
+        ex_group.add_updater(lambda x : x.become(VGroup(axes.get_graph(lambda x : exp(-x) - a.get_value(), stroke_width=1), Dot(axes.coords_to_point(-log(a.get_value()), 0), radius=0.015))))
+
+        self.play(Create(ex_group))
+
+        self.play(a.animate(run_time=2.0).set_value(0.4))
+
+        self.play(a.animate(run_time=2.0).set_value(exp(-1.56)))
+
+
+
+        line_1 = Line(axes.coords_to_point(1, -0.25), axes.coords_to_point(1, 0.25), stroke_width = 0.5).set_color(YELLOW)
+        line_2 = Line(axes.coords_to_point(2, -0.25), axes.coords_to_point(2, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(Create(line_1), Create(line_2))
+
+        mid_line = Line(axes.coords_to_point(1.5, -0.25), axes.coords_to_point(1.5, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(ReplacementTransform(line_1, mid_line), ReplacementTransform(line_2, mid_line))
+
+        line_2 = Line(axes.coords_to_point(2, -0.25), axes.coords_to_point(2, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(Create(line_2))
+
+        # line_3 = Line(axes.coords_to_point(2, -0.25), axes.coords_to_point(2, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        # self.play(Create(line_3))
+
+        mid_line_1 = Line(axes.coords_to_point(1.75, -0.25), axes.coords_to_point(1.75, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(ReplacementTransform(line_2, mid_line_1), ReplacementTransform(mid_line, mid_line_1))
+
+        mid_line = Line(axes.coords_to_point(1.5, -0.25), axes.coords_to_point(1.5, 0.25), stroke_width = 0.5).set_color(YELLOW)
+        
+        self.play(Create(mid_line))
+
+        mid_line_2 = Line(axes.coords_to_point(1.625, -0.25), axes.coords_to_point(1.625, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(ReplacementTransform(mid_line, mid_line_2), ReplacementTransform(mid_line_1, mid_line_2))
+
+        mid_line = Line(axes.coords_to_point(1.5, -0.25), axes.coords_to_point(1.5, 0.25), stroke_width = 0.5).set_color(YELLOW)
+        
+        self.play(Create(mid_line))
+
+        mid_line_3 = Line(axes.coords_to_point(1.5675, -0.25), axes.coords_to_point(1.5675, 0.25), stroke_width = 0.5).set_color(YELLOW)
+
+        self.play(ReplacementTransform(mid_line, mid_line_3), ReplacementTransform(mid_line_2, mid_line_3))
+
+        self.play(Uncreate(mid_line_3), Uncreate(ex_group))
