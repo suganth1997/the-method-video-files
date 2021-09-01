@@ -152,6 +152,83 @@ class BinarySearch(MovingCameraScene):
                 A = int((A+B)/2)
 
             self.wait(1.0)
+
+
+        axes = Axes(
+            x_range=[-10, 10.3, 1],
+            y_range=[-5, 5, 1],
+            x_length=10,
+            axis_config={"color": GREEN}, # "number_scale_value":0.5
+            x_axis_config={
+                "numbers_to_include": np.arange(-10, 10.01, 2),
+                "numbers_with_elongated_ticks": np.arange(-10, 10.01, 2),
+            },
+            tips=False
+        ).shift(DOWN)
+
+        numberLine = NumberLine([1, 2, 0.1], length=10, color=BLUE, include_numbers=True, number_scale_value=1, unit_size=10).shift(2*DOWN)
+
+        self.play(Create(numberLine).set_run_time(1.0))
+
+        def PlotBisection(f, A, B, n_steps):
+                
+                A = 1
+                B = 2
+
+                if f(A) < 0:
+                    A, B = B, A    
+            
+                line_1 = Line(numberLine.n2p(A) - [0, 0.2, 0], numberLine.n2p(A) + [0, 0.2, 0], stroke_width = 4).set_color(YELLOW)
+                line_2 = Line(numberLine.n2p(B) - [0, 0.2, 0], numberLine.n2p(B) + [0, 0.2, 0], stroke_width = 4).set_color(YELLOW)
+
+                self.play(Create(line_1), Create(line_2))
+
+                for i in range(n_steps):
+                    C = (A + B)/2
+
+                    mid_line = Line(numberLine.n2p(C) - [0, 0.2, 0], numberLine.n2p(C) + [0, 0.2, 0], stroke_width = 4).set_color(YELLOW)
+
+                    self.play(Create(mid_line))
+
+                    if f(C) > 0:
+                        A = C
+                        self.play(ReplacementTransform(line_1, mid_line))
+                        line_1 = mid_line
+
+                    else:
+                        B = C
+                        self.play(ReplacementTransform(line_2, mid_line))
+                        line_2 = mid_line
+
+                return line_1, line_2, mid_line, A, B
+
+        
+        f = lambda x : exp(-x) - exp(-1.114)
+
+        line_1, line_2, midline, A, B = PlotBisection(f, 1, 2, 4)
+
+        self.wait(2.0)
+
+        numberLine_1 = NumberLine([1, 1.2, 0.01], length=10, color=BLUE, include_numbers=True, number_scale_value=0.5, unit_size=10).shift(2*DOWN)
+        self.play(
+            ApplyMethod(numberLine.become, numberLine_1),
+            ApplyMethod(line_1.become, Line(numberLine_1.n2p(A) - [0, 0.2, 0], numberLine_1.n2p(A) + [0, 0.2, 0], stroke_width = 4).set_color(YELLOW)),
+            ApplyMethod(line_2.become, Line(numberLine_1.n2p(B) - [0, 0.2, 0], numberLine_1.n2p(B) + [0, 0.2, 0], stroke_width = 4).set_color(YELLOW))
+        )
+        
+        # self.play()
+        # self.play()
+
+        self.wait(2.0)
+
+        arr = np.linspace(1, 2, 11)
+
+        # sorted_array = MathTex(*("2 ,\quad 5 ,\quad 9 ,\quad 13 ,\quad 21 ,\quad 25 ,\quad 31 ,\quad 35 ,\quad 39".split(" ")))
+
+        self.play(ApplyMethod(sorted_array.become, MathTex(*(" ,\quad ".join([str(round(x, 1)) for x in arr]).split(" ")))))
+
+        self.wait(2.0)
+        round
         # A = int((A+B)/2)
 
         # sur_N_2 = SurroundingRectangle(sorted_array[num_ind[int((A + B)/2)]])
