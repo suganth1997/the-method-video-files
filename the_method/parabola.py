@@ -1,4 +1,5 @@
 from math import cos, sin, sqrt, tan, atan, pi
+from click import style
 from manim import *
 
 class ParabolaPlot(MovingCameraScene):
@@ -23,10 +24,20 @@ class ParabolaPlot(MovingCameraScene):
         line_parabola = axes.get_graph(lambda x: 0, color=YELLOW, x_range=[-sqrt(1.0/4.0), sqrt(1.0/4.0), 0.01])
         # area = axes.get_area(parabola_graph, [-sqrt(1.0/4.0), sqrt(1.0/4.0)], bounded=line_parabola)
 
-        m = -2*4.0**2
-        m_ = abs(tan(pi - atan(m)))
-        c = m_ * 2 * sqrt(1.0/4.0)
-        tangent_line = axes.get_graph(lambda x: m*x + c) # (sqrt(1.0/4.0), 0) --- (-sqrt(1.0/4.0), 2*(sqrt(1.0/4.0)*m)
+        m = -2*4.0*sqrt(1.0/4.0)
+        m_ = abs(m)
+        c = m_ * sqrt(1.0/4.0)
+        tangent_line = axes.get_graph(lambda x: m*x + c, x_range=[-sqrt(1.0/4.0), sqrt(1.0/4.0), 0.01], color=YELLOW) # (sqrt(1.0/4.0), 0) --- (-sqrt(1.0/4.0), 2*(sqrt(1.0/4.0)*m)
+
+        left_vertex_axis = axes.get_line_graph([-sqrt(1.0/4.0), -sqrt(1.0/4.0)], [0.0, 2*c], add_vertex_dots=False)
+
+        mid_axis = axes.get_line_graph([0.0, 0.0], [0.0, c], add_vertex_dots=False)
+
+        any_line_prl_axis = axes.get_line_graph([-sqrt(1.0/4.0)/2, -sqrt(1.0/4.0)/2], [0.0, m*(-sqrt(1.0/4.0)/2) + c], add_vertex_dots=False)
+
+        A_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/4.0), 0]))
+
+        A_text = Text('A').next_to(A_dot, (DOWN + LEFT)/2)
 
         a = ValueTracker(4)
 
@@ -55,16 +66,23 @@ class ParabolaPlot(MovingCameraScene):
         # self.add(axes)
         # self.play(Create(graph).set_run_time(4))
 
-        self.play(Create(parabola_graph).set_run_time(4))
+        self.play(Create(parabola_graph).set_run_time(2))
         self.play(Create(line_parabola).set_run_time(2))
         # self.play(Create(area).set_run_time(4))
 
-        self.wait(4)
-        self.play(self.camera.frame.animate.scale(2))
+        # self.wait(4)
+        # self.play(self.camera.frame.animate.scale(2))
 
-        self.play(a.animate(run_time=4).set_value(8.0))
-        self.play(a.animate(run_time=4).set_value(2.0))
-        self.play(a.animate(run_time=4).set_value(4.0))
+        # self.play(a.animate(run_time=4).set_value(8.0))
+        # self.play(a.animate(run_time=4).set_value(2.0))
+        # self.play(a.animate(run_time=4).set_value(4.0))
 
+        self.play(self.camera.frame.animate.scale(3).move_to([0, 5, 0]))
         self.play(Create(tangent_line))
+        self.play(Create(left_vertex_axis))
+        self.play(Create(mid_axis))
+        self.play(Create(any_line_prl_axis))
+
+        self.play(Create(A_dot), Create(A_text))
+
         self.wait(4)
