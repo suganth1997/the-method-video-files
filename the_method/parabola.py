@@ -20,30 +20,91 @@ class ParabolaPlot(MovingCameraScene):
         )
         # axes_labels = axes.get_axis_labels()
 
-        parabola_graph = axes.get_graph(lambda x: 1 - 4*x**2, color=YELLOW, x_range=[-sqrt(1.0/4.0), sqrt(1.0/4.0), 0.01])
-        line_parabola = axes.get_graph(lambda x: 0, color=YELLOW, x_range=[-sqrt(1.0/4.0), sqrt(1.0/4.0), 0.01])
+        # f = lambda x: 1 - 4*x**2
+
+        a = ValueTracker(4)
+
+        f = lambda x: 1 - a.get_value()*x**2
+
+        parabola_graph = axes.get_graph(lambda x: 1 - a.get_value()*x**2, color=YELLOW, x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01])
+        line_parabola = axes.get_graph(lambda x: 0, color=YELLOW, x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01])
         # area = axes.get_area(parabola_graph, [-sqrt(1.0/4.0), sqrt(1.0/4.0)], bounded=line_parabola)
 
-        m = -2*4.0*sqrt(1.0/4.0)
+        m = -2*a.get_value()*sqrt(1.0/a.get_value())
         m_ = abs(m)
         c = m_ * sqrt(1.0/4.0)
-        tangent_line = axes.get_graph(lambda x: m*x + c, x_range=[-sqrt(1.0/4.0), sqrt(1.0/4.0), 0.01], color=YELLOW) # (sqrt(1.0/4.0), 0) --- (-sqrt(1.0/4.0), 2*(sqrt(1.0/4.0)*m)
 
-        left_vertex_axis = axes.get_line_graph([-sqrt(1.0/4.0), -sqrt(1.0/4.0)], [0.0, 2*c], add_vertex_dots=False)
+        def tangent(x):
+            m = -2*a.get_value()*sqrt(1.0/a.get_value())
+            m_ = abs(m)
+            c = m_ * sqrt(1.0/a.get_value())
 
-        mid_axis = axes.get_line_graph([0.0, 0.0], [0.0, c], add_vertex_dots=False)
+            return m*x + c, c
 
-        any_line_prl_axis = axes.get_line_graph([-sqrt(1.0/4.0)/2, -sqrt(1.0/4.0)/2], [0.0, m*(-sqrt(1.0/4.0)/2) + c], add_vertex_dots=False)
+        tangent_line = axes.get_graph(lambda x: tangent(x)[0], x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01], color=YELLOW) # (sqrt(1.0/4.0), 0) --- (-sqrt(1.0/4.0), 2*(sqrt(1.0/4.0)*m)
+
+        left_vertex_axis = axes.get_line_graph([-sqrt(1.0/a.get_value()), -sqrt(1.0/a.get_value())], [0.0, 2*tangent(0)[1]], add_vertex_dots=False)
+
+        mid_axis = axes.get_line_graph([0.0, 0.0], [0.0, tangent(0)[1]], add_vertex_dots=False)
 
         A_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/4.0), 0]))
 
         A_text = Text('A').next_to(A_dot, (DOWN + LEFT)/2)
 
-        a = ValueTracker(4)
+        B_dot = Dot(axes.coords_to_point(*[0, 1]))
+
+        B_text = Text('B').next_to(B_dot, (UP + RIGHT)/2)
+
+        C_dot = Dot(axes.coords_to_point(*[sqrt(1.0/4.0), 0]))
+
+        C_text = Text('C').next_to(C_dot, (DOWN + RIGHT)/2)
+
+        D_dot = Dot(axes.coords_to_point(*[0, 0]))
+
+        D_text = Text('D').next_to(D_dot, DOWN)
+
+        E_dot = Dot(axes.coords_to_point(*[0, 2 * f(0)]))
+
+        E_text = Text('E').next_to(E_dot, (UP + RIGHT)/2)
+
+        F_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/4.0), 4 * f(0)]))
+
+        F_text = Text('F').next_to(F_dot, (UP + RIGHT)/2)
+
+
+        b = ValueTracker(0.25)
+
+        any_line_prl_axis = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False)
+
+        O_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), 0.0]))
+
+        O_text = Text('O').next_to(O_dot, DOWN)
+
+        M_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]]))
+
+        M_text = Text('M').next_to(M_dot, (UP + RIGHT)/2)
+
+        P_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))]))
+
+        P_text = Text('P').next_to(P_dot, (DOWN + RIGHT)/2)
 
         parabola_graph.add_updater(lambda x: x.become(axes.get_graph(lambda x: 1 - a.get_value()*x**2, color=YELLOW, x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01])))
         line_parabola.add_updater(lambda x: x.become(axes.get_graph(lambda x: 0, color=YELLOW, x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01])))
         
+        any_line_prl_axis.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False)))
+
+        O_dot.add_updater(lambda x: x.become(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), 0.0]))))
+
+        O_text.add_updater(lambda x: x.become(Text('O').next_to(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), 0.0])), DOWN)))
+
+        M_dot.add_updater(lambda x: x.become(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]]))))
+
+        M_text.add_updater(lambda x: x.become(Text('M').next_to(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]])), (UP + RIGHT)/2)))
+
+        P_dot.add_updater(lambda x: x.become(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))]))))
+
+        P_text.add_updater(lambda x: x.become(Text('P').next_to(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))])), (DOWN + RIGHT)/2)))
+
         # area.add_updater(lambda x: x.become(axes.get_area(parabola_graph, [-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value())], bounded=line_parabola)))
 
         # x_vals = np.linspace(-0.5, 0.5, 100)
@@ -83,6 +144,10 @@ class ParabolaPlot(MovingCameraScene):
         self.play(Create(mid_axis))
         self.play(Create(any_line_prl_axis))
 
-        self.play(Create(A_dot), Create(A_text))
+        self.play(Create(A_dot), Create(A_text), Create(C_dot), Create(C_text), Create(B_dot), Create(B_text), Create(D_dot), Create(D_text), Create(E_dot), Create(E_text), Create(F_dot), Create(F_text), Create(O_dot), Create(O_text), Create(M_dot), Create(M_text), Create(P_dot), Create(P_text))
+
+        self.play(b.animate(run_time=4).set_value(0.75))
+
+        self.play(b.animate(run_time=4).set_value(0.25))
 
         self.wait(4)
