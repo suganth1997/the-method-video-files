@@ -1,4 +1,5 @@
 from math import cos, sin, sqrt, tan, atan, pi
+from typing_extensions import runtime
 from click import style
 from manim import *
 
@@ -28,7 +29,8 @@ class ParabolaPlot(MovingCameraScene):
 
         parabola_graph = axes.get_graph(lambda x: 1 - a.get_value()*x**2, color=YELLOW, x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01])
         line_parabola = axes.get_graph(lambda x: 0, color=YELLOW, x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01])
-        # area = axes.get_area(parabola_graph, [-sqrt(1.0/4.0), sqrt(1.0/4.0)], bounded=line_parabola)
+
+        area = axes.get_area(parabola_graph, [-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value())], bounded=line_parabola, dx_scaling=10)
 
         m = -2*a.get_value()*sqrt(1.0/a.get_value())
         m_ = abs(m)
@@ -39,13 +41,28 @@ class ParabolaPlot(MovingCameraScene):
             m_ = abs(m)
             c = m_ * sqrt(1.0/a.get_value())
 
-            return m*x + c, c
+            return m*x + c, c, m
+        
+        def HKC(x):
+            m = -2*a.get_value()*sqrt(1.0/a.get_value())
+            m_ = abs(m)
+            c = m_ * sqrt(1.0/a.get_value())
+
+            return (m/2)*x + (c/2)
 
         tangent_line = axes.get_graph(lambda x: tangent(x)[0], x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01], color=YELLOW) # (sqrt(1.0/4.0), 0) --- (-sqrt(1.0/4.0), 2*(sqrt(1.0/4.0)*m)
 
         left_vertex_axis = axes.get_line_graph([-sqrt(1.0/a.get_value()), -sqrt(1.0/a.get_value())], [0.0, 2*tangent(0)[1]], add_vertex_dots=False)
 
         mid_axis = axes.get_line_graph([0.0, 0.0], [0.0, tangent(0)[1]], add_vertex_dots=False)
+
+        AB_line = axes.get_line_graph([-sqrt(1.0/a.get_value()), 0.0], [0.0, f(0.0)], add_vertex_dots=False)
+
+        BC_line = axes.get_line_graph([0.0, sqrt(1.0/a.get_value())], [f(0.0), 0.0], add_vertex_dots=False)
+
+        BK_line = axes.get_line_graph([-sqrt(1.0/a.get_value()), 0.0], [tangent(0)[1], f(0.0)], add_vertex_dots=False)
+
+        HK_line = axes.get_line_graph([-sqrt(1.0/a.get_value()), -3*sqrt(1.0/a.get_value())], [HKC(-sqrt(1.0/a.get_value())), HKC(-3*sqrt(1.0/a.get_value()))], add_vertex_dots=False)
 
         A_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/4.0), 0]))
 
@@ -71,6 +88,15 @@ class ParabolaPlot(MovingCameraScene):
 
         F_text = Text('F').next_to(F_dot, (UP + RIGHT)/2)
 
+        K_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/4.0), 2 * f(0)]))
+
+        K_text = Text('K').next_to(K_dot, (UP + LEFT)/2)
+
+        H_dot = Dot(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value()))]))
+
+        H_text = Text('H').next_to(H_dot, (UP + LEFT)/2)
+
+        
 
         b = ValueTracker(0.25)
 
@@ -83,6 +109,10 @@ class ParabolaPlot(MovingCameraScene):
         M_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]]))
 
         M_text = Text('M').next_to(M_dot, (UP + RIGHT)/2)
+
+        N_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), (-2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1])/2]))
+
+        N_text = Text('N').next_to(N_dot, (LEFT + DOWN)/2)
 
         P_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))]))
 
@@ -101,9 +131,15 @@ class ParabolaPlot(MovingCameraScene):
 
         M_text.add_updater(lambda x: x.become(Text('M').next_to(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]])), (UP + RIGHT)/2)))
 
+        N_dot.add_updater(lambda x: x.become(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), (-2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1])/2]))))
+
+        N_text.add_updater(lambda x: x.become(Text('N').next_to(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), (-2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1])/2])), (UP + RIGHT)/2)))
+
         P_dot.add_updater(lambda x: x.become(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))]))))
 
         P_text.add_updater(lambda x: x.become(Text('P').next_to(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))])), (DOWN + RIGHT)/2)))
+
+        TG_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE)
 
         # area.add_updater(lambda x: x.become(axes.get_area(parabola_graph, [-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value())], bounded=line_parabola)))
 
@@ -143,11 +179,29 @@ class ParabolaPlot(MovingCameraScene):
         self.play(Create(left_vertex_axis))
         self.play(Create(mid_axis))
         self.play(Create(any_line_prl_axis))
+        self.play(Create(AB_line), Create(BC_line))
+        self.play(Create(BK_line))
 
-        self.play(Create(A_dot), Create(A_text), Create(C_dot), Create(C_text), Create(B_dot), Create(B_text), Create(D_dot), Create(D_text), Create(E_dot), Create(E_text), Create(F_dot), Create(F_text), Create(O_dot), Create(O_text), Create(M_dot), Create(M_text), Create(P_dot), Create(P_text))
+        self.play(Create(A_dot), Create(A_text), Create(C_dot), Create(C_text), Create(B_dot), Create(B_text), Create(D_dot), Create(D_text), Create(E_dot), Create(E_text), Create(F_dot), Create(F_text), Create(O_dot), Create(O_text), Create(M_dot), Create(M_text), Create(P_dot), Create(P_text), Create(N_dot), Create(N_text), Create(K_dot), Create(K_text))
 
         self.play(b.animate(run_time=4).set_value(0.75))
 
         self.play(b.animate(run_time=4).set_value(0.25))
+
+        # self.wait(4)
+
+        self.play(self.camera.frame.animate.move_to([-8, 6, 0]))
+
+        self.wait(2)
+
+        self.play(Create(HK_line), Create(H_dot), Create(H_text))
+
+        self.play(Create(TG_line))
+
+        self.play(TG_line.animate.move_to(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value())), 0.0])))
+
+        self.play(b.animate(run_time=4).set_value(0.0))
+
+        self.play(Create(area), b.animate.set_value(1.0), runtime=4)
 
         self.wait(4)
