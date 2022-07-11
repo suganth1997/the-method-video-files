@@ -1,6 +1,4 @@
 from math import sqrt, tan
-from tkinter import Image
-from cv2 import circle
 from manim import *
 
 class IntroScene(MovingCameraScene):
