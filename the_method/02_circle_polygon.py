@@ -23,15 +23,28 @@ class PiWithPolygon(ZoomedScene):
 
         n = 15
 
-        circle = Circle(r)
+        circle = Circle(r).shift(4*RIGHT)
 
         inside_polygon = []
 
         outside_polygon = []
 
+        n_side_texts = []
+
+        inner_polygon_text = Text('Perimeter of circle > Perimeter of inner polygon', font_size=20).shift(3*LEFT + UP)
+
+        inner_polygon_perimeter = MathTex('2\pi r > 2nr\ sin\\left(\\frac{180}{n}\\right)', font_size=24).next_to(inner_polygon_text, DOWN)
+
+        outer_polygon_text = Text('Perimeter of circle < Perimeter of outer polygon', font_size=20).next_to(inner_polygon_perimeter, 2*DOWN)
+
+        outer_polygon_perimeter = MathTex('2\pi r < 2nr\ tan\\left(\\frac{180}{n}\\right)', font_size=24).next_to(outer_polygon_text, DOWN)
+
+        pi_perimeter_bounds = MathTex('n\ sin\\left(\\frac{180}{n}\\right) < \pi < n\ tan\\left(\\frac{180}{n}\\right)', font_size=24).next_to(outer_polygon_perimeter, DOWN)
+
         for i in range(4, n):
-            inside_polygon.append(RegularPolygon(i, radius=r, stroke_width=DEFAULT_STROKE_WIDTH/2, start_angle=PI/2))
-            outside_polygon.append(RegularPolygon(i, radius=r/cos(PI/i), stroke_width=DEFAULT_STROKE_WIDTH/2, start_angle=PI/2))
+            n_side_texts.append(MathTex('n = ' + str(i)).to_corner(UP+RIGHT))
+            inside_polygon.append(RegularPolygon(i, radius=r, stroke_width=DEFAULT_STROKE_WIDTH/2, start_angle=PI/2).shift(4*RIGHT))
+            outside_polygon.append(RegularPolygon(i, radius=r/cos(PI/i), stroke_width=DEFAULT_STROKE_WIDTH/2, start_angle=PI/2).shift(4*RIGHT))
 
         # inside_polygon = RegularPolygon(int(n.get_value()), radius=r, stroke_width=DEFAULT_STROKE_WIDTH/2)
 
@@ -56,12 +69,28 @@ class PiWithPolygon(ZoomedScene):
         # self.play(n.animate.set_value(10), run_time=4)
 
         n_list = n - 5
-        for i in range(n_list):
-            self.play(ReplacementTransform(inside_polygon[i], inside_polygon[i + 1]), ReplacementTransform(outside_polygon[i], outside_polygon[i + 1]), circle.animate.set(stroke_width=DEFAULT_STROKE_WIDTH/2  + ((n_list - i - 1)/n_list)*DEFAULT_STROKE_WIDTH/2))
+        for i in range(1):
+            self.play(Create(n_side_texts[0]))
+            self.play(ReplacementTransform(inside_polygon[i], inside_polygon[i + 1]), ReplacementTransform(outside_polygon[i], outside_polygon[i + 1]), circle.animate.set(stroke_width=DEFAULT_STROKE_WIDTH/2  + ((n_list - i - 1)/n_list)*DEFAULT_STROKE_WIDTH/2), ReplacementTransform(n_side_texts[i], n_side_texts[i + 1]))
+
+        self.play(Write(inner_polygon_text))
+
+        self.play(Write(outer_polygon_text))
+
+        self.play(Write(inner_polygon_perimeter))
+
+        self.play(Write(outer_polygon_perimeter))
+
+        self.play(Write(pi_perimeter_bounds))
+
+        for i in range(1, n_list):
+            self.play(ReplacementTransform(inside_polygon[i], inside_polygon[i + 1]), ReplacementTransform(outside_polygon[i], outside_polygon[i + 1]), circle.animate.set(stroke_width=DEFAULT_STROKE_WIDTH/2  + ((n_list - i - 1)/n_list)*DEFAULT_STROKE_WIDTH/2), ReplacementTransform(n_side_texts[i], n_side_texts[i + 1]))
 
         self.wait(2)
 
         self.play(Uncreate(circle), Uncreate(inside_polygon[n_list]), Uncreate(outside_polygon[n_list]))
+
+        self.play(Unwrite(inner_polygon_text), Unwrite(inner_polygon_perimeter), Unwrite(outer_polygon_text), Unwrite(outer_polygon_perimeter), Unwrite(pi_perimeter_bounds), Uncreate(n_side_texts[n_list]))
 
         self.wait(2)
 
