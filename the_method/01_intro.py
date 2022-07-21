@@ -34,7 +34,7 @@ class IntroScene(MovingCameraScene):
 
         right_circle = Circle(0.15, color=BLUE, fill_opacity=1).move_to(3*RIGHT)
 
-        center = Dot(color=BLUE)
+        center = Dot(ORIGIN, color=BLUE)
 
         lever_and_all = VGroup(lever, left_circle, right_circle)
 
@@ -70,11 +70,11 @@ class IntroScene(MovingCameraScene):
 
         self.play(Create(lever_and_all))
 
-        self.play(lever_and_all.animate.rotate(PI/12, about_point=ORIGIN))
+        self.play(lever_and_all.animate.rotate(PI/12, about_point=center.get_center()))
 
         self.play(lever_and_all.animate.shift(RIGHT + tan(PI/12)*UP))
 
-        self.play(lever_and_all.animate.rotate(-PI/12, about_point=ORIGIN))
+        self.play(lever_and_all.animate.rotate(-PI/12, about_point=center.get_center()))
 
         self.play(Create(lever_law), fulcrum_and_lever.animate.shift((LEFT+UP)*2.25))
 
@@ -101,3 +101,4 @@ class IntroScene(MovingCameraScene):
         self.play(Create(geometry_3))
 
         self.wait(2)
+        

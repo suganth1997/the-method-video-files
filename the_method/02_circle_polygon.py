@@ -1,4 +1,5 @@
 from math import sqrt, tan, cos
+from multiprocessing.sharedctypes import Value
 from manim import *
 
 from numpy import poly
@@ -119,65 +120,76 @@ class PiWithPolygon(ZoomedScene):
 
         divs = 3
 
-        m_base = -1
-        c_base = 0.5
+        # m_base = -1
+        # c_base = 0.5
 
-        m_base = 0.0
-        c_base = 0.0
+        m_base = ValueTracker(0.0)
+        c_base = ValueTracker(0.0)
 
-        x1_ = (-m_base - sqrt((m_base**2) - (4*a.get_value()*(c_base - 1))))/(2*a.get_value())
-        x2_ = (-m_base + sqrt((m_base**2) - (4*a.get_value()*(c_base - 1))))/(2*a.get_value())
+        x1_ = (-m_base.get_value() - sqrt((m_base.get_value()**2) - (4*a.get_value()*(c_base.get_value() - 1))))/(2*a.get_value())
+        
+        x2_ = (-m_base.get_value() + sqrt((m_base.get_value()**2) - (4*a.get_value()*(c_base.get_value() - 1))))/(2*a.get_value())
 
         parabola_graph = axes.get_graph(lambda x: f(x), color=YELLOW, x_range=[x1_, x2_, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/2)
 
-        areas = []
+        def get_parabola_triangles():
+            areas = []
 
-        triangle_lines = [[{'m':m_base, 'c':c_base, 'x1':x1_, 'x2':x2_}]]
+            x1_ = (-m_base.get_value() - sqrt((m_base.get_value()**2) - (4*a.get_value()*(c_base.get_value() - 1))))/(2*a.get_value())
+            x2_ = (-m_base.get_value() + sqrt((m_base.get_value()**2) - (4*a.get_value()*(c_base.get_value() - 1))))/(2*a.get_value())
 
-        triangle_lines_obj = [[axes.get_graph(lambda x: triangle_lines[0][0]['m']*x + triangle_lines[0][0]['c'], color=YELLOW, x_range=[x1_, x2_, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/2)]]
 
-        for i_div in range(divs):
-            triangle_lines_now = []
-            triangle_lines_now_obj = []
-            areas_now = VGroup()
-            for i_base, bases in enumerate(triangle_lines[i_div]):
-                x1 = bases['x1']
-                y1 = f(x1)
+            triangle_lines = [[{'m':m_base.get_value(), 'c':c_base.get_value(), 'x1':x1_, 'x2':x2_}]]
 
-                x3 = -bases['m']/(2*a.get_value())
-                y3 = f(x3)
+            triangle_lines_obj = [[axes.get_graph(lambda x: triangle_lines[0][0]['m']*x + triangle_lines[0][0]['c'], color=YELLOW, x_range=[x1_, x2_, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/2)]]
 
-                m1 = (y3 - y1) / (x3 - x1)
-                c1 = y1 - m1 * x1
+            for i_div in range(divs):
+                triangle_lines_now = []
+                triangle_lines_now_obj = []
+                areas_now = []
+                for i_base, bases in enumerate(triangle_lines[i_div]):
+                    x1 = bases['x1']
+                    y1 = f(x1)
 
-                triangle_lines_now.append({'m':m1, 'c':c1, 'x1':x1, 'x2':x3})
-                triangle_lines_now_obj.append(axes.get_graph(lambda x: m1*x+c1, color=YELLOW, x_range=[x1, x3, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/(i_div + 2)))
-                
-                x2 = bases['x2']
-                y2 = f(x2)
+                    x3 = -bases['m']/(2*a.get_value())
+                    y3 = f(x3)
 
-                m2 = (y3 - y2) / (x3 - x2)
-                c2 = y2 - m2 * x2
+                    m1 = (y3 - y1) / (x3 - x1)
+                    c1 = y1 - m1 * x1
 
-                triangle_lines_now.append({'m':m2, 'c':c2, 'x1':x3, 'x2':x2})
-                triangle_lines_now_obj.append(axes.get_graph(lambda x: m2*x+c2, color=YELLOW, x_range=[x3, x2, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/(i_div + 2)))
+                    triangle_lines_now.append({'m':m1, 'c':c1, 'x1':x1, 'x2':x3})
+                    triangle_lines_now_obj.append(axes.get_graph(lambda x: m1*x+c1, color=YELLOW, x_range=[x1, x3, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/(i_div + 2)))
+                    
+                    x2 = bases['x2']
+                    y2 = f(x2)
 
-                print(i_div, i_base, triangle_lines[i_div][i_base])
+                    m2 = (y3 - y2) / (x3 - x2)
+                    c2 = y2 - m2 * x2
 
-                m_ = triangle_lines[i_div][i_base]['m']
-                c_ = triangle_lines[i_div][i_base]['c']
+                    triangle_lines_now.append({'m':m2, 'c':c2, 'x1':x3, 'x2':x2})
+                    triangle_lines_now_obj.append(axes.get_graph(lambda x: m2*x+c2, color=YELLOW, x_range=[x3, x2, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/(i_div + 2)))
 
-                area_1 = axes.get_area(triangle_lines_now_obj[0], [x1, x3], bounded=axes.get_graph(lambda x: m_*x+c_, color=YELLOW, x_range=[x1, x3, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/(i_div + 2)), dx_scaling=5, color=GREEN)
+                    print(i_div, i_base, triangle_lines[i_div][i_base])
 
-                area_2 = axes.get_area(triangle_lines_now_obj[1], [x3, x2], bounded=axes.get_graph(lambda x: m_*x+c_, color=YELLOW, x_range=[x1, x3, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/(i_div + 2)), dx_scaling=5, color=GREEN)
+                    m_ = triangle_lines[i_div][i_base]['m']
+                    c_ = triangle_lines[i_div][i_base]['c']
 
-                areas_now += area_1 + area_2
+                    area_1 = axes.get_area(triangle_lines_now_obj[0], [x1, x3], bounded=axes.get_graph(lambda x: m_*x+c_, color=YELLOW, x_range=[x1, x3, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/(i_div + 2)), dx_scaling=5, color=GREEN)
 
-            triangle_lines.append(triangle_lines_now)
-            triangle_lines_obj.append(triangle_lines_now_obj)
+                    area_2 = axes.get_area(triangle_lines_now_obj[1], [x3, x2], bounded=axes.get_graph(lambda x: m_*x+c_, color=YELLOW, x_range=[x1, x3, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/(i_div + 2)), dx_scaling=5, color=GREEN)
 
-            areas.append(areas_now)
+                    areas_now.append(area_1 + area_2)
 
+                triangle_lines.append(triangle_lines_now)
+                triangle_lines_obj.append(triangle_lines_now_obj)
+
+                areas.append(areas_now)
+
+            return triangle_lines_obj, areas, triangle_lines
+
+        triangle_lines_obj, areas, triangle_lines = get_parabola_triangles()
+
+        # print(triangle_lines_obj)
         
         self.play(Create(parabola_graph))
 
@@ -188,8 +200,97 @@ class PiWithPolygon(ZoomedScene):
 
             self.play(*triangle_create)
 
-        
-        for area in areas:
-            self.play(Create(area))
+        x_A = triangle_lines[0][0]['x1']
+        A_dot = Dot(axes.coords_to_point(*[x_A, f(x_A)]), radius=DEFAULT_DOT_RADIUS*2/3)
+        A_text = Text("A", font_size=20).next_to(A_dot, LEFT/2)
 
-        self.wait(2)
+        x_B = triangle_lines[0][0]['x2']
+        B_dot = Dot(axes.coords_to_point(*[x_B, f(x_B)]), radius=DEFAULT_DOT_RADIUS*2/3)
+        B_text = Text("B", font_size=20).next_to(B_dot, RIGHT/2)
+
+        x_C = triangle_lines[1][0]['x2']
+        C_dot = Dot(axes.coords_to_point(*[x_C, f(x_C)]), radius=DEFAULT_DOT_RADIUS*2/3)
+        C_text = Text("C", font_size=20).next_to(C_dot, UP/2)
+
+        x_D = triangle_lines[2][0]['x2']
+        D_dot = Dot(axes.coords_to_point(*[x_D, f(x_D)]), radius=DEFAULT_DOT_RADIUS*2/3)
+        D_text = Text("D", font_size=20).next_to(D_dot, (LEFT + UP)/2)
+
+        x_E = triangle_lines[2][2]['x2']
+        E_dot = Dot(axes.coords_to_point(*[x_E, f(x_E)]), radius=DEFAULT_DOT_RADIUS*2/3)
+        E_text = Text("E", font_size=20).next_to(E_dot, (RIGHT + UP)/2)
+
+        # for area in areas:
+        #     self.play(Create(area))
+
+        triangle_ABC = MathTex("\Delta ABC").shift(2*UP + 4*LEFT)
+
+        triangle_ADC = MathTex("= \\frac{1}{8}\Delta ADC").next_to(triangle_ABC, RIGHT)
+
+        area_of_parabola = MathTex("\\text{Area of Parabola}", font_size=24).shift(2*UP + 4*LEFT)
+
+        area_series = MathTex("= \Delta ABC + 2\\times\\frac{1}{8}\Delta ABC + 4\\times\\frac{1}{8^2}\Delta ABC+...", font_size = 24).next_to(area_of_parabola, RIGHT)
+
+        area_series_1 = MathTex("= \\left(1 + \\frac{1}{4} + \\frac{1}{16} + ...\\right)\Delta ABC", font_size = 24).next_to(area_of_parabola, RIGHT)
+
+        area_series_2 = MathTex("= \\left(1 + \\frac{1}{4}\left(1 + \\frac{1}{4} + ...\\right)\\right)\Delta ABC", font_size = 24).next_to(area_of_parabola, RIGHT)
+        
+        area_series_3 = MathTex("= \Delta ABC + \\frac{1}{4}\left(1 + \\frac{1}{4} + ...\\right)\Delta ABC", font_size = 24).next_to(area_of_parabola, RIGHT)
+        
+        area_series_4 = MathTex("= \Delta ABC + \\frac{1}{4}\\text{Area of Parabola}", font_size = 24).next_to(area_of_parabola, RIGHT)
+        
+        area_series_5 = MathTex("= \\frac{4}{3}\Delta ABC", font_size = 24).next_to(area_of_parabola, RIGHT)
+
+        self.play(Create(A_dot), Create(B_dot), Create(C_dot), Create(D_dot), Create(E_dot))
+        
+        self.play(Write(A_text), Write(B_text), Write(C_text), Write(D_text), Write(E_text))
+        
+        self.play(Create(areas[0][0]))
+
+        self.play(areas[0][0].animate(run_time=0.75).set_opacity(1.0))
+
+        self.play(areas[0][0].animate(run_time=0.75).set_opacity(0.3), Write(triangle_ABC))
+
+        self.play(areas[1][0].animate(run_time=0.75).set_opacity(1.0))
+
+        self.play(areas[1][0].animate(run_time=0.75).set_opacity(0.3), Write(triangle_ADC))
+
+        self.play(Create(areas[1][1]))
+
+        self.play(Unwrite(triangle_ABC), Unwrite(triangle_ADC))
+
+        self.play(Write(area_of_parabola))
+
+        self.play(Write(area_series), Create(areas[2][0]), Create(areas[2][1]), Create(areas[2][2]), Create(areas[2][3]))
+
+        self.play(ReplacementTransform(area_series, area_series_1))
+
+        self.play(ReplacementTransform(area_series_1, area_series_2))
+
+        self.play(ReplacementTransform(area_series_2, area_series_3))
+
+        self.play(ReplacementTransform(area_series_3, area_series_4))
+
+        self.play(ReplacementTransform(area_series_4, area_series_5))
+
+        # parabola_triangles_group_list = [x for xs in triangle_lines_obj for x in xs]
+
+        # print(parabola_triangles_group_list)
+
+        # parabola_triangles_group = Group(*parabola_triangles_group_list)
+        
+        # def parabola_updater(x):
+
+        #     triangle_lines_obj, areas = get_parabola_triangles()
+            
+        #     parabola_triangles_group_list = [x for xs in triangle_lines_obj for x in xs]
+
+        #     parabola_triangles_group = Group(*parabola_triangles_group_list)
+
+        #     x.become(parabola_triangles_group_list)
+
+        # parabola_triangles_group.add_updater(parabola_updater)
+
+        self.wait(4)
+
+        # self.play(c_base.animate.set_value(0.5))
