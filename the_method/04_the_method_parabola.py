@@ -297,6 +297,8 @@ class ParabolaPlot(MovingCameraScene):
 
         return
 
+        # TODO: visualize fulcrum and lever, finally remove parabola and triangles and only bring everything, even areas to fulcrum and lever so that we can end with that, somehow
+
         self.play(Create(TG_line_))
 
         self.play(TG_line_.animate.move_to(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value())), 0.0])))
