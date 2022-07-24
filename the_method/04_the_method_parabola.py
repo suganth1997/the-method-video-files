@@ -77,8 +77,21 @@ class ParabolaPlot(MovingCameraScene):
 
         TG_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE)
 
-        PO_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE)
+        PO_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*4)
 
+        MO_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*4)
+
+        CA_line = axes.get_line_graph([-sqrt(1.0/4.0), sqrt(1.0/4.0)], [0.0, 0.0], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*4)
+        
+        AO_line = axes.get_line_graph([-sqrt(1.0/4.0), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, 0.0], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*4)
+
+        CK_line = axes.get_line_graph([-sqrt(1.0/4.0), sqrt(1.0/4.0)], [2 * f(0), 0.0], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*4)
+        
+        KN_line = axes.get_line_graph([-sqrt(1.0/4.0), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [2 * f(0), (-2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1])/2], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*4)
+        
+        HK_line_ = axes.get_line_graph([-sqrt(1.0/4.0), -3*sqrt(1.0/a.get_value())], [2 * f(0), HKC(-3*sqrt(1.0/a.get_value()))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*4)
+
+        
         A_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/4.0), 0]))
 
         A_text = Text('A').next_to(A_dot, (DOWN + LEFT)/2)
@@ -155,7 +168,25 @@ class ParabolaPlot(MovingCameraScene):
 
         TG_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE).move_to(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value())), 0.0]))))
 
-        PO_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE)))
+        # PO_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)))
+
+        # MO_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)))
+
+        quadrature_text = Text("Quadrature of Parabola", font_size = 80).shift(20*LEFT + 15*UP)
+        
+        the_method_text = Text("The Method", font_size = 80).shift(25*LEFT + 15*UP)
+
+        MO_PO_text = MathTex("\\frac{MO}{PO} = ", font_size = 58).shift(15*LEFT + 8*UP)
+
+        CA_AO_text = MathTex("\\frac{CA}{AO}", font_size = 58).next_to(MO_PO_text, RIGHT)
+
+        CK_KN_text = MathTex("\\frac{CK}{KN}", font_size = 58).next_to(MO_PO_text, RIGHT)
+        
+        HK_KN_text = MathTex("\\frac{HK}{KN}", font_size = 58).next_to(MO_PO_text, RIGHT).shift(4*DOWN)
+
+        ratio_relation = VGroup(MO_PO_text, CK_KN_text)
+        
+        fulcrum_lever_text = MathTex("MO\\times KN = OP\\times HK", font_size = 58).shift(15*LEFT + 4*UP)
 
         # area.add_updater(lambda x: x.become(axes.get_area(parabola_graph, [-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value())], bounded=line_parabola)))
 
@@ -208,9 +239,63 @@ class ParabolaPlot(MovingCameraScene):
 
         self.play(self.camera.frame.animate.move_to([-8, 6, 0]))
 
-        self.wait(2)
+        self.play(Write(quadrature_text))
+
+        self.play(FadeIn(MO_line))
+        
+        self.play(FadeOut(MO_line))
+
+        self.play(FadeIn(PO_line))
+
+        self.play(FadeOut(PO_line))
+
+        self.play(Write(MO_PO_text))
+
+        self.play(FadeIn(CA_line))
+        
+        self.play(FadeOut(CA_line))
+
+        self.play(FadeIn(AO_line))
+
+        self.play(FadeOut(AO_line))
+
+        self.play(Write(CA_AO_text))
+
+        self.play(FadeIn(CK_line))
+        
+        self.play(FadeOut(CK_line))
+
+        self.play(FadeIn(KN_line))
+
+        self.play(FadeOut(KN_line))
+
+        self.play(Unwrite(CA_AO_text))
+
+        self.play(Write(CK_KN_text))
+
+        self.play(Unwrite(quadrature_text))
+        
+        self.play(Write(the_method_text))
+
+        self.play(ratio_relation.animate.shift(4*DOWN))
 
         self.play(Create(HK_line), Create(H_dot), Create(H_text))
+
+        self.play(FadeIn(HK_line_))
+
+        self.play(FadeOut(HK_line_))
+
+        self.play(Unwrite(CK_KN_text))
+
+        self.play(Write(HK_KN_text))
+
+        self.play(Unwrite(MO_PO_text), Unwrite(HK_KN_text))
+
+        self.play(Write(fulcrum_lever_text))
+
+        self.wait(2)
+
+        return
 
         self.play(Create(TG_line_))
 
