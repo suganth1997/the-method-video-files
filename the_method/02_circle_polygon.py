@@ -251,6 +251,8 @@ class PiWithPolygon(ZoomedScene):
 
         self.play(areas[0][0].animate(run_time=0.75).set_opacity(0.3), Write(triangle_ABC))
 
+        self.play(Create(areas[1][0]))
+
         self.play(areas[1][0].animate(run_time=0.75).set_opacity(1.0))
 
         self.play(areas[1][0].animate(run_time=0.75).set_opacity(0.3), Write(triangle_ADC))
