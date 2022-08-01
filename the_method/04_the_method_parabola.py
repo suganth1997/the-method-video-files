@@ -188,6 +188,36 @@ class ParabolaPlot(MovingCameraScene):
         
         fulcrum_lever_text = MathTex("MO\\times KN = OP\\times HK", font_size = 58).shift(15*LEFT + 4*UP)
 
+        lever_ = Line(7*LEFT, 8*RIGHT).next_to(fulcrum_lever_text, 15*DOWN).shift(2*LEFT)
+        
+        # fulcrum_lever_illus
+
+        lever_center = lever_.get_center()
+        lever_left_coord = lever_.get_left()
+        lever_right_coord = lever_.get_right()
+
+        lever_right_coord[0] = lever_center[0] + (lever_center[0] - lever_left_coord[0])/2
+        lever_right_coord[1] = lever_center[1] + (lever_center[1] - lever_left_coord[1])/2
+        lever_right_coord[2] = lever_center[2] + (lever_center[2] - lever_left_coord[2])/2
+
+        lever_left = Line(lever_left_coord, lever_center)
+        lever_right = Line(lever_center, lever_right_coord)
+
+        f_l_center_dot = Dot(lever_center, radius=2*DEFAULT_DOT_RADIUS)
+        f_l_left_dot = Dot(lever_left_coord, radius=2*DEFAULT_DOT_RADIUS)
+        f_l_right_dot = Dot(lever_right_coord, radius=2*DEFAULT_DOT_RADIUS)
+
+        l_H = Text("H", font_size=48).next_to(f_l_left_dot, RIGHT + UP)
+        l_K = Text("K", font_size=48).next_to(f_l_center_dot, UP)
+        l_N = Text("N", font_size=48).next_to(f_l_right_dot, LEFT + UP)
+
+        lever_all = VGroup(lever_left, lever_right, f_l_left_dot, f_l_right_dot)
+
+        fulcrum = Polygon(lever_center, lever_center + (2*LEFT+2*DOWN)/2, lever_center + (2*RIGHT+2*DOWN)/2, fill_opacity=1)
+
+        fulcrum_all = VGroup(fulcrum, f_l_center_dot)
+
+
         # area.add_updater(lambda x: x.become(axes.get_area(parabola_graph, [-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value())], bounded=line_parabola)))
 
         # x_vals = np.linspace(-0.5, 0.5, 100)
@@ -295,10 +325,19 @@ class ParabolaPlot(MovingCameraScene):
 
         self.wait(2)
 
+        self.play(Create(lever_all))
+
+        self.play(Create(fulcrum_all))
+
+        self.play(Write(l_H), Write(l_K), Write(l_N))
+
+        self.wait(4)
+
+
         return
 
-        # TODO: visualize fulcrum and lever, finally remove parabola and triangles and only bring everything, even areas to fulcrum and lever so that we can end with that, somehow
-
+        # TODO: animate fulcrum and lever with line lengths, and conclude with archimedes quote
+        
         self.play(Create(TG_line_))
 
         self.play(TG_line_.animate.move_to(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value())), 0.0])))
