@@ -73,23 +73,31 @@ class ParabolaPlot(MovingCameraScene):
 
         HK_line = axes.get_line_graph([-sqrt(1.0/a.get_value()), -3*sqrt(1.0/a.get_value())], [HKC(-sqrt(1.0/a.get_value())), HKC(-3*sqrt(1.0/a.get_value()))], add_vertex_dots=False)
 
-        TG_line_ = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE)
+        # TG_line_ = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)
 
-        TG_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE)
+        TG_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)
 
-        PO_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*4)
-
-        MO_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*4)
-
-        CA_line = axes.get_line_graph([-sqrt(1.0/4.0), sqrt(1.0/4.0)], [0.0, 0.0], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*4)
+        PO_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)
         
-        AO_line = axes.get_line_graph([-sqrt(1.0/4.0), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, 0.0], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*4)
+        PO_line_ = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)
+        
+        PO_line__ = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)
 
-        CK_line = axes.get_line_graph([-sqrt(1.0/4.0), sqrt(1.0/4.0)], [2 * f(0), 0.0], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*4)
+        MO_line = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)
+
+        MO_line_ = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)
+
+        # MO_line__ = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)
+
+        CA_line = axes.get_line_graph([-sqrt(1.0/4.0), sqrt(1.0/4.0)], [0.0, 0.0], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)
         
-        KN_line = axes.get_line_graph([-sqrt(1.0/4.0), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [2 * f(0), (-2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1])/2], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*4)
+        AO_line = axes.get_line_graph([-sqrt(1.0/4.0), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, 0.0], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)
+
+        CK_line = axes.get_line_graph([-sqrt(1.0/4.0), sqrt(1.0/4.0)], [2 * f(0), 0.0], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)
         
-        HK_line_ = axes.get_line_graph([-sqrt(1.0/4.0), -3*sqrt(1.0/a.get_value())], [2 * f(0), HKC(-3*sqrt(1.0/a.get_value()))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*4)
+        KN_line = axes.get_line_graph([-sqrt(1.0/4.0), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [2 * f(0), (-2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1])/2], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)
+        
+        HK_line_ = axes.get_line_graph([-sqrt(1.0/4.0), -3*sqrt(1.0/a.get_value())], [2 * f(0), HKC(-3*sqrt(1.0/a.get_value()))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)
 
         
         A_dot = Dot(axes.coords_to_point(*[-sqrt(1.0/4.0), 0]))
@@ -166,11 +174,11 @@ class ParabolaPlot(MovingCameraScene):
 
         P_text.add_updater(lambda x: x.become(Text('P').next_to(Dot(axes.coords_to_point(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))])), (DOWN + RIGHT)/2)))
 
-        TG_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE).move_to(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value())), 0.0]))))
+        TG_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2).move_to(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value())), 0.0]))))
 
-        # PO_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)))
+        PO_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)))
 
-        # MO_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)))
+        MO_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)))
 
         quadrature_text = Text("Quadrature of Parabola", font_size = 80).shift(20*LEFT + 15*UP)
         
@@ -188,7 +196,7 @@ class ParabolaPlot(MovingCameraScene):
         
         fulcrum_lever_text = MathTex("MO\\times KN = OP\\times HK", font_size = 58).shift(15*LEFT + 4*UP)
 
-        lever_ = Line(7*LEFT, 8*RIGHT).next_to(fulcrum_lever_text, 15*DOWN).shift(2*LEFT)
+        lever_ = Line(7*LEFT, 8*RIGHT).next_to(fulcrum_lever_text, 6*DOWN).shift(4*LEFT)
         
         # fulcrum_lever_illus
 
@@ -196,27 +204,93 @@ class ParabolaPlot(MovingCameraScene):
         lever_left_coord = lever_.get_left()
         lever_right_coord = lever_.get_right()
 
-        lever_right_coord[0] = lever_center[0] + (lever_center[0] - lever_left_coord[0])/2
-        lever_right_coord[1] = lever_center[1] + (lever_center[1] - lever_left_coord[1])/2
-        lever_right_coord[2] = lever_center[2] + (lever_center[2] - lever_left_coord[2])/2
+        # dist = lambda x1, x2: sqrt((x1[0] - x2[0])**2 + (x1[1] - x2[1])**2)
 
+        # HK_length = dist(axes.c2p(*[-sqrt(1.0/a.get_value()), HKC(-sqrt(1.0/a.get_value()))]), axes.c2p(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value()))]))
+
+        # [-sqrt(1.0/4.0), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [2 * f(0), (-2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1])/2]
+
+        # KN_length = dist(axes.c2p(*[-sqrt(1.0/a.get_value()), HKC(-sqrt(1.0/a.get_value()))]), axes.c2p(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), HKC(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))]))
+
+        # print(-sqrt(1.0/a.get_value()), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))
+
+        # print("KN_length = ", KN_length, ", HK_length = ", HK_length)
+
+        # lever_left_coord = lever_center - np.array([HK_length, 0, 0])/1.75
+
+        # lever_right_coord = lever_center + np.array([KN_length, 0, 0])/1.75
+
+        dist = lambda x1, x2: sqrt((x1[0] - x2[0])**2 + (x1[1] - x2[1])**2)
+
+        def get_left_and_right_coord():
+            HK_length = dist(axes.c2p(*[-sqrt(1.0/a.get_value()), HKC(-sqrt(1.0/a.get_value()))]), axes.c2p(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value()))]))
+
+            KN_length = dist(axes.c2p(*[-sqrt(1.0/a.get_value()), HKC(-sqrt(1.0/a.get_value()))]), axes.c2p(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), HKC(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))]))
+
+            lever_left_coord = lever_center - np.array([HK_length, 0, 0])/1.75
+
+            lever_right_coord = lever_center + np.array([KN_length, 0, 0])/1.75
+
+            return lever_left_coord, lever_right_coord
+
+        lever_left_coord, lever_right_coord = get_left_and_right_coord()
+
+        def lever_updater(x):
+            lever_left_coord, lever_right_coord = get_left_and_right_coord()
+            x.become(Line(lever_left_coord, lever_right_coord))
+
+        # lever_right_coord[0] = lever_center[0] + (lever_center[0] - lever_left_coord[0])/2
+        # lever_right_coord[1] = lever_center[1] + (lever_center[1] - lever_left_coord[1])/2
+        # lever_right_coord[2] = lever_center[2] + (lever_center[2] - lever_left_coord[2])/2
+
+        lever_ = Line(lever_left_coord, lever_right_coord)
         lever_left = Line(lever_left_coord, lever_center)
         lever_right = Line(lever_center, lever_right_coord)
+
+        lever_.add_updater(lever_updater)
 
         f_l_center_dot = Dot(lever_center, radius=2*DEFAULT_DOT_RADIUS)
         f_l_left_dot = Dot(lever_left_coord, radius=2*DEFAULT_DOT_RADIUS)
         f_l_right_dot = Dot(lever_right_coord, radius=2*DEFAULT_DOT_RADIUS)
 
+        def f_l_right_dot_updater(x):
+            lever_left_coord, lever_right_coord = get_left_and_right_coord()
+            x.become(Dot(lever_right_coord, radius=2*DEFAULT_DOT_RADIUS))
+
+        f_l_right_dot.add_updater(f_l_right_dot_updater)
+
         l_H = Text("H", font_size=48).next_to(f_l_left_dot, RIGHT + UP)
         l_K = Text("K", font_size=48).next_to(f_l_center_dot, UP)
         l_N = Text("N", font_size=48).next_to(f_l_right_dot, LEFT + UP)
 
-        lever_all = VGroup(lever_left, lever_right, f_l_left_dot, f_l_right_dot)
+        def l_N_updater(x):
+            lever_left_coord, lever_right_coord = get_left_and_right_coord()
+            f_l_right_dot = Dot(lever_right_coord, radius=2*DEFAULT_DOT_RADIUS)
+            x.become(Text("N", font_size=48).next_to(f_l_right_dot, LEFT + UP))
+
+        l_N.add_updater(l_N_updater)
+
+        lever_all = VGroup(lever_, f_l_left_dot, f_l_right_dot)
 
         fulcrum = Polygon(lever_center, lever_center + (2*LEFT+2*DOWN)/2, lever_center + (2*RIGHT+2*DOWN)/2, fill_opacity=1)
 
         fulcrum_all = VGroup(fulcrum, f_l_center_dot)
 
+        TG_line_ = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2).move_to(lever_left_coord)
+
+        def TG_line__updater(x):
+            lever_left_coord, lever_right_coord = get_left_and_right_coord()
+            x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2).move_to(lever_left_coord))
+
+        TG_line_.add_updater(TG_line__updater)
+
+        MO_line_f = axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2).move_to(lever_right_coord)
+
+        def MO_line_f_updater(x):
+            lever_left_coord, lever_right_coord = get_left_and_right_coord()
+            x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2).move_to(lever_right_coord))
+
+        MO_line_f.add_updater(MO_line_f_updater)
 
         # area.add_updater(lambda x: x.become(axes.get_area(parabola_graph, [-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value())], bounded=line_parabola)))
 
@@ -325,32 +399,55 @@ class ParabolaPlot(MovingCameraScene):
 
         self.wait(2)
 
+        # TODO: animate fulcrum and lever with line lengths, and conclude with archimedes quote
+        
+        # self.play(Create(TG_line_))
+
+        # self.play(TG_line_.animate.move_to(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value())), 0.0])))
+
+        # self.add(TG_line)
+
+        # self.play(Uncreate(TG_line_))
+
+        self.play(Create(PO_line))
+
+        self.play(b.animate(run_time=4).set_value(0.0))
+
+        self.play(b.animate(run_time=2).set_value(1.0))
+
+        self.play(b.animate(run_time=2).set_value(0.25))
+
+        self.play(fulcrum_lever_text.animate.shift(8*UP + 7*LEFT))
+
         self.play(Create(lever_all))
 
         self.play(Create(fulcrum_all))
 
         self.play(Write(l_H), Write(l_K), Write(l_N))
 
-        self.wait(4)
-
-
-        return
-
-        # TODO: animate fulcrum and lever with line lengths, and conclude with archimedes quote
         
-        self.play(Create(TG_line_))
 
-        self.play(TG_line_.animate.move_to(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value())), 0.0])))
+        self.play(Create(PO_line_), Create(PO_line__))
 
-        self.add(TG_line)
+        self.play(ReplacementTransform(PO_line_, TG_line))
 
-        self.play(Uncreate(TG_line_))
+        self.play(ReplacementTransform(PO_line__, TG_line_))
 
-        self.play(Create(PO_line))
+        self.play(Create(MO_line_), Create(MO_line))
 
-        self.play(b.animate(run_time=4).set_value(0.0))
+        self.play(ReplacementTransform(MO_line_, MO_line_f))
+
+        self.play(b.animate(run_time=6).set_value(0.75))
+
+        self.play(b.animate(run_time=2).set_value(1.0))
+
+        self.play(b.animate(run_time=6).set_value(0.0))
 
         self.play(b.animate(run_time=2).set_value(0.25))
+
+        self.wait(4)
+
+        return
 
         self.play(Create(area), run_time=4)
 
