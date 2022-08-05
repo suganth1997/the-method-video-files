@@ -430,8 +430,6 @@ class ParabolaPlot(MovingCameraScene):
 
         self.play(Write(l_H), Write(l_K), Write(l_N))
 
-        
-
         self.play(Create(PO_line_), Create(PO_line__))
 
         self.play(ReplacementTransform(PO_line_, TG_line))
@@ -448,7 +446,7 @@ class ParabolaPlot(MovingCameraScene):
 
         self.play(b.animate(run_time=6).set_value(0.0))
 
-        self.play(b.animate(run_time=2).set_value(0.33))
+        self.play(b.animate(run_time=2).set_value(0.25))
 
         self.wait(4)
 
@@ -465,7 +463,36 @@ class ParabolaPlot(MovingCameraScene):
         tr_l = area_triangle.get_left()
         tr_center = area_triangle.get_center()
 
+        AF_length = np.linalg.norm(A_dot.get_center() - F_dot.get_center())
+        AC_length = np.linalg.norm(A_dot.get_center() - C_dot.get_center())
+        KC_length = np.linalg.norm(K_dot.get_center() - C_dot.get_center())
+
+        AF_length *= AC_length/KC_length
+
+        triangle_vis_eq = Polygon(lever_center + AF_length*UP/2, lever_center - AF_length*UP/2, lever_center + KC_length*RIGHT, fill_color=BLUE, fill_opacity=0.5)
+
         self.play(area_triangle.animate.move_to(lever_center + (tr_center - tr_l) + 2*UP), run_time=2)
+
+        self.play(b.animate(run_time=2).set_value(0.0))
+
+        lever_left_coord, lever_right_coord = get_left_and_right_coord()
+
+        MO_line_f_ = Line(lever_right_coord - AF_length*UP/2, lever_right_coord + AF_length*UP/2)
+
+        def MO_line_f__updater(x):
+            lever_left_coord, lever_right_coord = get_left_and_right_coord()
+            b_f = 1 - b.get_value()
+            AC_b_f = b_f*KC_length
+            AF_b_f = AC_b_f * AF_length / (KC_length * 2)
+            x.become(Line(lever_right_coord - AF_b_f*UP, lever_right_coord + AF_b_f*UP))
+
+        MO_line_f_.add_updater(MO_line_f__updater)
+
+        self.play(ReplacementTransform(area_triangle, triangle_vis_eq), ReplacementTransform(MO_line_f, MO_line_f_))
+
+        self.play(b.animate(run_time=2).set_value(1.0))
+
+        # self.play(self.camera.frame.animate.move_to([-15, 6, 0]), fulcrum_lever_text.animate.shift(7*LEFT), the_method_text.animate.shift(7*LEFT))
 
         # self.play(area_triangle.animate.stretch_in_place(1.0/1.75, 0))
         
