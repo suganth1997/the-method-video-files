@@ -1,4 +1,5 @@
 from math import cos, sin, sqrt, tan, atan, pi
+from random import triangular
 from typing_extensions import runtime
 from click import style
 from manim import *
@@ -200,9 +201,11 @@ class ParabolaPlot(MovingCameraScene):
         
         # fulcrum_lever_illus
 
-        lever_center = lever_.get_center()
+        lever_center = [-18, 2.3, 0] # lever_.get_center()
         lever_left_coord = lever_.get_left()
         lever_right_coord = lever_.get_right()
+
+        print(lever_center)
 
         # dist = lambda x1, x2: sqrt((x1[0] - x2[0])**2 + (x1[1] - x2[1])**2)
 
@@ -222,14 +225,16 @@ class ParabolaPlot(MovingCameraScene):
 
         dist = lambda x1, x2: sqrt((x1[0] - x2[0])**2 + (x1[1] - x2[1])**2)
 
+        HK_length = dist(axes.c2p(*[-sqrt(1.0/a.get_value()), HKC(-sqrt(1.0/a.get_value()))]), axes.c2p(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value()))]))
+
         def get_left_and_right_coord():
             HK_length = dist(axes.c2p(*[-sqrt(1.0/a.get_value()), HKC(-sqrt(1.0/a.get_value()))]), axes.c2p(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value()))]))
 
             KN_length = dist(axes.c2p(*[-sqrt(1.0/a.get_value()), HKC(-sqrt(1.0/a.get_value()))]), axes.c2p(*[-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), HKC(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))]))
 
-            lever_left_coord = lever_center - np.array([HK_length, 0, 0])/1.75
+            lever_left_coord = lever_center - np.array([HK_length, 0, 0]) # /1.75
 
-            lever_right_coord = lever_center + np.array([KN_length, 0, 0])/1.75
+            lever_right_coord = lever_center + np.array([KN_length, 0, 0]) # /1.75
 
             return lever_left_coord, lever_right_coord
 
@@ -419,7 +424,7 @@ class ParabolaPlot(MovingCameraScene):
 
         self.play(fulcrum_lever_text.animate.shift(8*UP + 7*LEFT))
 
-        self.play(Create(lever_all))
+        self.play(Create(lever_all), self.camera.frame.animate.move_to([-15, 6, 0]), fulcrum_lever_text.animate.shift(7*LEFT), the_method_text.animate.shift(7*LEFT))
 
         self.play(Create(fulcrum_all))
 
@@ -443,16 +448,25 @@ class ParabolaPlot(MovingCameraScene):
 
         self.play(b.animate(run_time=6).set_value(0.0))
 
-        self.play(b.animate(run_time=2).set_value(0.25))
+        self.play(b.animate(run_time=2).set_value(0.33))
 
         self.wait(4)
 
-        return
-
         self.play(Create(area), run_time=4)
 
-        self.play(Uncreate(TG_line_), Uncreate(TG_line), area.animate.move_to(axes.coords_to_point(*[-3*sqrt(1.0/a.get_value()), HKC(-3*sqrt(1.0/a.get_value())), 0.0])), run_time=4)
+        # self.play(area.animate.scale(1.0/1.75), run_time=2)
+
+        self.play(area.animate.move_to(lever_left_coord), run_time=2)
 
         self.play(Create(area_triangle))
+
+        # self.play(area_triangle.animate.scale(1.0/1.75), run_time=2)
+
+        tr_l = area_triangle.get_left()
+        tr_center = area_triangle.get_center()
+
+        self.play(area_triangle.animate.move_to(lever_center + (tr_center - tr_l) + 2*UP), run_time=2)
+
+        # self.play(area_triangle.animate.stretch_in_place(1.0/1.75, 0))
         
         self.wait(4)
