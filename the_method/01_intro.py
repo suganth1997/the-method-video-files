@@ -7,10 +7,10 @@ class IntroScene(MovingCameraScene):
 
         archimedes_works = ImageMobject('works_of_archimedes.png').scale(0.5).to_corner(RIGHT+DOWN)
 
-        archimedes_quote_1 = Text("Mathematics reveals its secrets only to those who approach it with pure love,", font_size=20).to_edge(UP).to_edge(LEFT)
-        archimedes_quote_2 = Text("for its own beauty.", font_size=20).next_to(archimedes_quote_1, DOWN).to_edge(LEFT)
+        archimedes_quote_1 = Text("Give me a lever long enough and a fulcrum to place it,", font_size=24).to_edge(UP).to_edge(LEFT)
+        archimedes_quote_2 = Text("and I shall move the world.", font_size=24).next_to(archimedes_quote_1, DOWN).to_edge(LEFT)
         
-        archimedes_name = Text("~ Archimedes", slant=ITALIC, font_size=18).next_to(archimedes_quote_2, DOWN).to_edge(RIGHT)
+        archimedes_name = Text("~ Archimedes", slant=ITALIC, font_size=20).next_to(archimedes_quote_2, DOWN).to_edge(RIGHT)
 
         self.play(Write(archimedes_quote_1))
 

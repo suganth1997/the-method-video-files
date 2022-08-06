@@ -155,6 +155,7 @@ class ParabolaPlot(MovingCameraScene):
         P_text = Text('P').next_to(P_dot, (DOWN + RIGHT)/2)
 
         parabola_graph.add_updater(lambda x: x.become(axes.get_graph(lambda x: 1 - a.get_value()*x**2, color=YELLOW, x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01])))
+
         line_parabola.add_updater(lambda x: x.become(axes.get_graph(lambda x: 0, color=YELLOW, x_range=[-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value()), 0.01])))
         
         any_line_prl_axis.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False)))
@@ -180,6 +181,8 @@ class ParabolaPlot(MovingCameraScene):
         PO_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, f(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())))], add_vertex_dots=False, line_color=BLUE, stroke_width=DEFAULT_STROKE_WIDTH*2)))
 
         MO_line.add_updater(lambda x: x.become(axes.get_line_graph([-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value())), -sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))], [0.0, -2*a.get_value()*sqrt(1.0/a.get_value())*(-sqrt(1.0/a.get_value()) + b.get_value()*(2*sqrt(1.0/a.get_value()))) + tangent(0)[1]], add_vertex_dots=False, line_color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)))
+
+        # parabola_diagram_group = VGroup()
 
         quadrature_text = Text("Quadrature of Parabola", font_size = 80).shift(20*LEFT + 15*UP)
         
@@ -318,6 +321,10 @@ class ParabolaPlot(MovingCameraScene):
         # cos_graph = axes.get_graph(lambda x: np.cos(x), color=RED)
         # self.add(axes)
         # self.play(Create(graph).set_run_time(4))
+
+        parabola_diagram_group = VGroup(parabola_graph, line_parabola, tangent_line, left_vertex_axis, mid_axis, any_line_prl_axis, AB_line, BC_line, BK_line, MO_line, PO_line, MO_PO_text, CA_line, AO_line, CA_AO_text, CK_line, KN_line, CK_KN_text, HK_line, TG_line, H_dot, H_text, HK_line_, HK_KN_text, A_dot, A_text, C_dot, C_text, B_dot, B_text, D_dot, D_text, E_dot, E_text, F_dot, F_text, O_dot, O_text, M_dot, M_text, P_dot, P_text, N_dot, N_text, K_dot, K_text)
+
+        parabola_diagram_group_ = VGroup(parabola_graph, line_parabola, tangent_line, left_vertex_axis, AB_line, BC_line)
 
         self.play(Create(parabola_graph).set_run_time(2))
         self.play(Create(line_parabola).set_run_time(2))
@@ -492,8 +499,93 @@ class ParabolaPlot(MovingCameraScene):
 
         self.play(b.animate(run_time=2).set_value(1.0))
 
-        # self.play(self.camera.frame.animate.move_to([-15, 6, 0]), fulcrum_lever_text.animate.shift(7*LEFT), the_method_text.animate.shift(7*LEFT))
+        self.play(FadeIn(KN_line))
 
-        # self.play(area_triangle.animate.stretch_in_place(1.0/1.75, 0))
+        self.play(FadeOut(KN_line))
+
+        self.play(FadeIn(HK_line_))
+
+        self.play(FadeOut(HK_line_))
+
+        for mobj in parabola_diagram_group:
+            try:
+                mobj.remove_updater(mobj.get_updaters()[0])
+
+            except IndexError:
+                continue
+
+        self.play(parabola_diagram_group.animate.shift(20*RIGHT), self.camera.frame.animate.move_to([-20, 6, 0]), fulcrum_lever_text.animate.shift(5*LEFT), the_method_text.animate.shift(5*LEFT))
+
+        self.play(b.animate(run_time=2).set_value(0.33))
+
+        lever_left_coord, lever_right_coord = get_left_and_right_coord()
+
+        temp_line_to_centroid = Line(lever_center, lever_right_coord, color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)
+
+        temp_line_to_center = Line(lever_center, lever_left_coord, color=RED, stroke_width=DEFAULT_STROKE_WIDTH*2)
+
+        HK_KN_text = MathTex("KN = \\frac{HK}{3}", font_size = 58).next_to(lever_right_coord, 5*UP)
+
+        self.play(FadeIn(temp_line_to_centroid))
+
+        self.play(Write(HK_KN_text), FadeIn(temp_line_to_center))
+
+        self.play(FadeOut(temp_line_to_centroid), FadeOut(temp_line_to_center))
+
+        self.play(Uncreate(MO_line_f_), Uncreate(TG_line_), triangle_vis_eq.animate.rotate(PI/2, about_point=lever_right_coord))
+
+        area_up = area.get_top()
+
+        area_c = area.get_center()
+
+        self.play(area.animate.shift(area_c - area_up), triangle_vis_eq.animate.shift(KC_length*DOWN*2.0/3.0), self.camera.frame.animate.move_to([-20, 0, 0]), fulcrum_lever_text.animate.shift(6*DOWN), the_method_text.animate.shift(6*DOWN))
+
+        area_fulcrum_text = MathTex("\\text{Area of Parabola} \\times HK = \\text{Area of Triangle} \\times KN", font_size = 58).move_to(fulcrum_lever_text.get_left()).shift(5*RIGHT)
+
+        area_fulcrum_text_final = MathTex("\\text{Area of Parabola} = \\frac{1}{3}\\text{Area of Triangle}", font_size = 58).move_to(fulcrum_lever_text.get_left()).shift(5*RIGHT)
+
+        area_inscribed_triangle = MathTex("=\\frac{4}{3}\\text{Area of inscribed Triangle}", font_size = 58).next_to(area_fulcrum_text_final, RIGHT)
+
+        # parabola_basic_diag = VGroup(parabola_graph, line_parabola, tangent_line, left_vertex_axis).scale(0.5).next_to(lever_right_coord, 5*RIGHT + 5*UP)
+
+        HK_KN_text_ = HK_KN_text.copy()
+
+        self.play(Unwrite(fulcrum_lever_text))
+
+        self.play(Write(area_fulcrum_text))
+
+        self.add(HK_KN_text_)
+
+        self.play(ReplacementTransform(HK_KN_text, area_fulcrum_text))
+
+        self.play(ReplacementTransform(area_fulcrum_text, area_fulcrum_text_final))
+
+        self.play(parabola_diagram_group_.animate.scale(0.5))
+
+        self.play(parabola_diagram_group_.animate.shift(22.5*LEFT))
+
+        area_ = axes.get_area(parabola_graph, [-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value())], bounded=line_parabola, dx_scaling=10).scale(0.5).move_to(parabola_graph.get_center())
+
+        area_triangle_ = axes.get_area(tangent_line, [-sqrt(1.0/a.get_value()), sqrt(1.0/a.get_value())], bounded=line_parabola, dx_scaling=10).scale(0.5).shift(line_parabola.get_left() - line_parabola.get_center())
+
+        self.play(FadeIn(area_))
+
+        self.play(FadeOut(area_))
+
+        self.play(FadeIn(area_triangle_))
+
+        self.play(FadeOut(area_triangle_))
+
+        self.play(Write(area_inscribed_triangle))
+
+        fulcrum_lever_text_ = fulcrum_lever_text.next_to(HK_KN_text_, 4*UP)
+        
+        self.play(Write(fulcrum_lever_text_))
+
+        ratio_relation_ = ratio_relation.next_to(fulcrum_lever_text_, 2*UP)
+
+        self.play(Write(ratio_relation_))
+        
+        # self.play(Create(parabola_basic_diag))
         
         self.wait(4)
