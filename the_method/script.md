@@ -1,7 +1,7 @@
 ## Introduction
 `quote and picture rolls in`
 
-Hello everyone, here I would like to talk about a method from one of the greatest ancient mathematicians, engineer, scientist and what not, Archimedes. This method of archimedes which in itself called "The Method" is the most elegant one I have seen for a problem, is not taught nowadays as it is not needed for modern day mathematics but I believe it would be a great example of how perspectives can help us solve the unsolved.
+Hello everyone, here I would like to talk about a method from one of the greatest ancient mathematicians, engineer, scientist and what not, Archimedes. This method of archimedes which in itself called "The Method" is the most elegant one I have seen for any problem and I believe it would be a great example of how perspectives can help us solve the unsolved.
 
 `law of levers`
 
