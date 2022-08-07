@@ -29,10 +29,29 @@ Even after figuring this out, he did not stop there, he wanted to apply his most
 
 `the method -- parabola`
 
-We will start with the same parabolic segment, even this method is applicable to any parabolic segment, but here I have only considered a regular segment because I am only a beginner to this beautiful animation tool manim, thanks to Grant of 3b1b. So first we draw a line parallel to the axis of the parabola through the mid point of the line segment.
+We will start with the same parabolic segment, even this method is applicable to any parabolic segment, but here I have only considered a regular segment because I am only a beginner to this beautiful animation tool manim, thanks to Grant of 3b1b. 
 
+First let us name the line segment enclosing the parabola as AC, then we will construct a line that is tangent to the parabola from the end C and from the other end A we draw a line parallel to the axis of the parabola which will meet the tangent line at F, same way we also draw a line parallel to the axis of the parabola through the mid point of the line segment D, which meets the parabola at B and the tangent line at E, this makes our parabola as ABC. Now we can form the triangle inscribed by the parabola by joining AB and BC, and we also extend the line BC to meet the line AF at K.
+
+Now we consider any line parallel to the axis of the parabola, let us make such a line MO which meets the line CK at N and the parabola at P. Now if we say something about the line PO, it should and will hold for any line parallel to the axis of the parabola, or any section of the parabola. Here I would like to fast forward a property which Archimedes had proved in his works named the 'Quadrature of the Parabola', I am not getting into proving this but only how he uses this property to arrive at an elegant explanation. So the property is basically this, the ratio of the line MO which is any parallel line to the axis to the line PO which the same line intersects with the parabola is same as the ratio of the line segment AC enclosing the parabola to this length AO. This ratio can also be written in terms of the CK and KN as the triangles ACK and OCN are similar triangles. This we have from Quadrature of the Parabola.
+
+Now in The Method, what he does is that, if we construct a line HK from K by extending the line CK and by construction we choose HK the same length as CK, then we can modify this ratio relation and if we re arrange and write it as a product expression, so now this holds for any section of the parabola.
+
+I think until this point anyone could've done but what he does next is probably only what Archimedes might've done. Now he sees this product relation as a fulcrum and a lever relation. The length of lines MO and PO are just a measure and hence we could consider them balancing on a lever with MO placed at length KN and PO placed at length HK from the center. I would like to say that this is where his engineering comes into play and now he moves on to harness infinity.
+
+So this would apply to any section of the parabola, and hence if we consider every possible sections of the parabola then we could say that the area of the parabola ABC placed at a length HK from the center is in balance with the area of the triangle ACF placed at a length, so this length is a bit tricky as in our relation this length which is KN keeps varying. Actually as this length is varying, he says that it will be at balance when the triangle is hinged at the centroid. To see this better let us consider an isoceles triangle with the same area and same height as triangle ACF, I have modified the base accordingly for construction but the area is the same. With this setup we could intuitively see that it will be in balance when we hinge it at the centroid, and hence KN become one third of HK.
+
+Now we can write the fulcrum lever balance for this setup and substitute this KN and HK relation to arrive at the area of the parabola relating to the area of the triangle, which can be easily calculated. And there is also a relation between the larger triangle and the inscribed triangle and the area of the parabola can be expressed as fourth thirds of it which we also confirmed from one of the earlier methods.
+
+Eureka!
+
+Let us dial back, so he starts by choosing any section of the parabola, builds a property on it, changes the lens to see the same from a different perspective, integrates it over the parabola and he has managed to express the area of a curved shape such as a parabola in terms of a straight shape whose area is known. That sounds incredible, to me atleast, and another venue to emphasize that changing the perspectives can help us solved the unsolved.
 
 
 `end`
 
-To emphasize why these were incredible at that time, we now know integration to calculate areas of curved bodies and algebra to write equations of curved bodies and graph to visualize those equations, but in those days none of the above were there. Even the parabola is defined as shape  you get when you cut the cone is specific angles and not as y=ax^2.
+Also to emphasize why just finding the areas which are simple to us were great at that time is because that, we now know integration to calculate areas of curved bodies and algebra to write equations of curved bodies and graph to visualize those equations, but in those days none of the above were there. Even the parabola is defined as shape  you get when you cut the cone is specific angles and not as y=ax^2. Maybe if Descartes and Fermat were born at Syracuse, the brachistochrone problem would've been proposed in Greece itself.
+
+`end quote`
+
+I would like to end here with a quote giving the same emphasis on perspectives. If you have watched this far, thank you for your time and thanks for watching.
