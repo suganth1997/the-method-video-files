@@ -15,6 +15,7 @@ And we would definitely know the Archimedes principle for buoyancy of submerged 
 
 As an engineer, I have heard of the Archimedes principle in the context of fluid statics but what we might not know is that he was a great geometrician. The ancient greeks were infact curious about everything and the curved shapes such as circles and conics intrigued them. His works on Geometry were recovered from ancient writings and was published in 1858 by **said college** serves to be the best compilation of his works. But the method which I want to talk about here was not recovered in that publication, it was recovered later in 1901 and translated by the same author.
 
+## Value of Pi and area of Parabola
 `value of pi`
 
 I first came across this method when I was reading 'Infinite Powers' by Steven Strogatz, in which he rightfully calls Archimedes as 'the man who harnessed infinity' which also translates to that he discovered integration in his quest. To emphasize this, he discusses a method to calculate the value of pi. One thing the Greeks have figured out was the ratio of the circumference to the diameter of a circle is constant, but the value was not known. What he does is that he inscribes a polygon inside the circle and circumscribes another polygon outside the circle. So the perimeter of the polygons create an upper bound and a lower bound on the value of circumference of the circle. And they had figured out things with straight lines better than curves. As you refine your polygons and increase the number of sides, you inch closer and closer to the value of pi. But when the number of sides increases this would take a great deal of manual work to compute the numbers. This was actually the best known method to calculate pi until Newton came along.
@@ -27,6 +28,7 @@ So we take a parabolic segment, any segment and first construct a triangle by jo
 
 Even after figuring this out, he did not stop there, he wanted to apply his most elegant reasonings to this problem of area of parabola, which we will see in the so called 'The Method'.
 
+## The Method
 `the method -- parabola`
 
 We will start with the same parabolic segment, even this method is applicable to any parabolic segment, but here I have only considered a regular segment because I am only a beginner to this beautiful animation tool manim, thanks to Grant of 3b1b. 
@@ -45,12 +47,16 @@ Now we can write the fulcrum lever balance for this setup and substitute this KN
 
 Eureka!
 
+## The Method conclude
+
 Let us dial back, so he starts by choosing any section of the parabola, builds a property on it, changes the lens to see the same from a different perspective, integrates it over the parabola and he has managed to express the area of a curved shape such as a parabola in terms of a straight shape whose area is known. That sounds incredible, to me atleast, and another venue to emphasize that changing the perspectives can help us solved the unsolved.
 
 
 `end`
 
-Also to emphasize why just finding the areas which are simple to us were great at that time is because that, we now know integration to calculate areas of curved bodies and algebra to write equations of curved bodies and graph to visualize those equations, but in those days none of the above were there. Even the parabola is defined as shape  you get when you cut the cone is specific angles and not as y=ax^2. Maybe if Descartes and Fermat were born at Syracuse, the brachistochrone problem would've been proposed in Greece itself.
+Also to emphasize why just finding the areas which are simple to us were great at that time is because that, we now know integration to calculate areas of curved bodies and algebra to write equations of curved bodies and graph to visualize those equations, but in those days none of the above were there. Even the parabola is defined as shape  you get when you cut the cone is specific angles and not as y=ax^2. Maybe if Descartes and Fermat were born at Syracuse, the brachistochrone problem might've been proposed at ancient Greece itself.
+
+## Conclude
 
 `end quote`
 
