@@ -12,20 +12,6 @@ class IntroScene(MovingCameraScene):
         
         archimedes_name = Text("~ Archimedes", slant=ITALIC, font_size=20).next_to(archimedes_quote_2, DOWN).to_edge(RIGHT)
 
-        self.play(Write(archimedes_quote_1))
-
-        self.play(Write(archimedes_quote_2))
-
-        self.play(Write(archimedes_name))
-
-        self.play(FadeIn(archimedes))
-
-        self.wait(2)
-
-        self.play(Unwrite(archimedes_quote_1), Unwrite(archimedes_quote_2), Unwrite(archimedes_name))
-
-        self.play(archimedes.animate.to_corner(UP + RIGHT))
-
         fulcrum = Polygon(ORIGIN, (LEFT+DOWN)/2, (RIGHT+DOWN)/2, fill_opacity=1)
 
         lever = Line(3*LEFT, 3*RIGHT, color=BLUE)
@@ -62,13 +48,29 @@ class IntroScene(MovingCameraScene):
 
         geometry_3 = Text("...", font_size=16).next_to(geometry_2, DOWN)
 
-        cup_water_setup = VGroup(cup, water_level, water_level_, circle_ball, eureka)        
+        cup_water_setup = VGroup(cup, water_level, water_level_, circle_ball, eureka)
 
-        self.play(Create(fulcrum), Create(center))
+        self.play(Write(archimedes_quote_1))
+
+        self.play(Write(archimedes_quote_2))
+
+        self.play(Write(archimedes_name))
+
+        self.wait(10)
+
+        self.play(FadeIn(archimedes))
+
+        self.wait(15)
+
+        self.play(Unwrite(archimedes_quote_1), Unwrite(archimedes_quote_2), Unwrite(archimedes_name), run_time=5)
+
+        self.play(archimedes.animate.to_corner(UP + RIGHT), run_time=5)
+
+        self.play(Create(fulcrum), Create(center), run_time=2.5)
 
         # self.play(Create(lever), Create(center), Create(left_circle), Create(right_circle))
 
-        self.play(Create(lever_and_all))
+        self.play(Create(lever_and_all), run_time=2.5)
 
         self.play(lever_and_all.animate.rotate(PI/12, about_point=center.get_center()))
 
