@@ -29,16 +29,14 @@
   
 * The ancient greeks were infact curious about everything and the curved shapes such as circles and conics intrigued them. 
   
-* His works on Geometry were recovered from ancient writings and was published in 1858 by **said college** serves to be the best compilation of his works. 
-  
-* But the method which I want to talk about here was not recovered in that publication, it was recovered later in 1901 and translated by the same author.
+* His works on Geometry were recovered from ancient writings and was published in 1858 by **said college** serves to be the best compilation of his works.
 
 ## Value of Pi and area of Parabola
 `value of pi`
 
 * I first came across this method when I was reading 'Infinite Powers' by Steven Strogatz, in which he rightfully calls Archimedes as 'the man who harnessed infinity' which also translates to that he discovered integration in his quest. 
   
-* To emphasize this, he discusses a method to calculate the value of pi. One thing the Greeks have figured out was the ratio of the circumference to the diameter of a circle is constant, but the value was not known. 
+* To emphasize this, let us first look at a method which he discusses to calculate the value of pi. One thing the Greeks had figured out was the ratio of the circumference to the diameter of a circle is constant, but the value was not known. 
   
 * What he does is that he inscribes a polygon inside the circle and circumscribes another polygon outside the circle. 
   
