@@ -151,7 +151,7 @@ That sounds incredible, to me atleast, and another venue to emphasize that chang
   
 * The notion between geometry and algebra become more clearer with the works of Descartes and Fermat, which gave the analytical geometry we study at elementary level in schools
   
-* Maybe if they were born at Syracuse, the brachistochrone problem might've been proposed at ancient Greece itself.
+* Maybe if they were born at Syracuse, the brachistochrone problem might've been solved at ancient Greece itself.
 
 ## Conclude
 
