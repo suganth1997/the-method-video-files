@@ -106,5 +106,6 @@ class IntroScene(MovingCameraScene):
 
         self.play(Create(geometry_3), run_time=2.5)
 
-        self.wait(10)
+        self.wait(20)
+
         

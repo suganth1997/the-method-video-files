@@ -55,11 +55,15 @@ class PiWithPolygon(ZoomedScene):
 
         # outside_polygon.add_updater(lambda x: x.become(RegularPolygon(int(n.get_value()), radius=r/cos(PI/int(n.get_value())), stroke_width=DEFAULT_STROKE_WIDTH/2)))
         
+        self.wait(7)
+
         self.play(Create(circle))
 
-        self.play(Create(inside_polygon[0]))
+        self.wait(10)
+        
+        self.play(Create(inside_polygon[0]), run_time=2)
 
-        self.play(Create(outside_polygon[0]))
+        self.play(Create(outside_polygon[0]), run_time=2)
 
         # self.activate_zooming(animate=False)
 
@@ -82,12 +86,16 @@ class PiWithPolygon(ZoomedScene):
 
         self.play(Write(outer_polygon_perimeter))
 
-        self.play(Write(pi_perimeter_bounds))
+        self.wait(8)
+
+        self.play(Write(pi_perimeter_bounds), run_time=2)
+
+        self.wait(3)
 
         for i in range(1, n_list):
             self.play(ReplacementTransform(inside_polygon[i], inside_polygon[i + 1]), ReplacementTransform(outside_polygon[i], outside_polygon[i + 1]), circle.animate.set(stroke_width=DEFAULT_STROKE_WIDTH/2  + ((n_list - i - 1)/n_list)*DEFAULT_STROKE_WIDTH/2), ReplacementTransform(n_side_texts[i], n_side_texts[i + 1]))
 
-        self.wait(2)
+        self.wait(10)
 
         self.play(Uncreate(circle), Uncreate(inside_polygon[n_list]), Uncreate(outside_polygon[n_list]))
 
@@ -193,7 +201,16 @@ class PiWithPolygon(ZoomedScene):
         
         self.play(Create(parabola_graph))
 
-        for triangle_line in triangle_lines_obj:
+        for triangle_line in triangle_lines_obj[0:1]:
+            triangle_create = []
+            for line in triangle_line:
+                triangle_create.append(Create(line))
+
+            self.play(*triangle_create)
+
+        self.wait(20)
+
+        for triangle_line in triangle_lines_obj[1:2]:
             triangle_create = []
             for line in triangle_line:
                 triangle_create.append(Create(line))
@@ -211,6 +228,12 @@ class PiWithPolygon(ZoomedScene):
         x_C = triangle_lines[1][0]['x2']
         C_dot = Dot(axes.coords_to_point(*[x_C, f(x_C)]), radius=DEFAULT_DOT_RADIUS*2/3)
         C_text = Text("C", font_size=20).next_to(C_dot, UP/2)
+
+        self.play(Create(A_dot), Create(B_dot), Create(C_dot))
+        
+        self.play(Write(A_text), Write(B_text), Write(C_text))
+
+        self.wait(15)
 
         x_D = triangle_lines[2][0]['x2']
         D_dot = Dot(axes.coords_to_point(*[x_D, f(x_D)]), radius=DEFAULT_DOT_RADIUS*2/3)
@@ -241,9 +264,16 @@ class PiWithPolygon(ZoomedScene):
         
         area_series_5 = MathTex("= \\frac{4}{3}\Delta ABC", font_size = 24).next_to(area_of_parabola, RIGHT)
 
-        self.play(Create(A_dot), Create(B_dot), Create(C_dot), Create(D_dot), Create(E_dot))
+        for triangle_line in triangle_lines_obj[2:]:
+            triangle_create = []
+            for line in triangle_line:
+                triangle_create.append(Create(line))
+
+            self.play(*triangle_create, run_time = 2)
+
+        self.play(Create(D_dot), Create(E_dot))
         
-        self.play(Write(A_text), Write(B_text), Write(C_text), Write(D_text), Write(E_text))
+        self.play(Write(D_text), Write(E_text))
         
         self.play(Create(areas[0][0]))
 
@@ -257,6 +287,8 @@ class PiWithPolygon(ZoomedScene):
 
         self.play(areas[1][0].animate(run_time=0.75).set_opacity(0.3), Write(triangle_ADC))
 
+        self.wait(5)
+
         self.play(Create(areas[1][1]))
 
         self.play(Unwrite(triangle_ABC), Unwrite(triangle_ADC))
@@ -265,13 +297,23 @@ class PiWithPolygon(ZoomedScene):
 
         self.play(Write(area_series), Create(areas[2][0]), Create(areas[2][1]), Create(areas[2][2]), Create(areas[2][3]))
 
+        self.wait(5)
+
         self.play(ReplacementTransform(area_series, area_series_1))
+
+        self.wait(2)
 
         self.play(ReplacementTransform(area_series_1, area_series_2))
 
+        self.wait(2)
+
         self.play(ReplacementTransform(area_series_2, area_series_3))
+        
+        self.wait(2)
 
         self.play(ReplacementTransform(area_series_3, area_series_4))
+
+        self.wait(2)
 
         self.play(ReplacementTransform(area_series_4, area_series_5))
 
