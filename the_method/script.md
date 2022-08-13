@@ -1,7 +1,7 @@
 ## Introduction
 `quote and picture rolls in`
 
-* Hello everyone, here I would like to talk about a method from one of the greatest ancient mathematicians, engineer, scientist and what not, Archimedes. 
+* Hello everyone, welcome to this video, here I would like to talk about a method from one of the greatest ancient mathematicians, engineer, scientist and what not, Archimedes. 
 
 * This method of archimedes which in itself called "The Method" is the most elegant one I have seen for any problem and I believe it would be a great example of how perspectives can help us solve the unsolved.
 
@@ -42,7 +42,9 @@
   
 * So the perimeter of the polygons create an upper bound and a lower bound on the value of circumference of the circle. 
   
-* And they had figured out things with straight lines better than curves. 
+* And they had figured out things with straight lines better than curves, so they knew how to calculate the perimeter of polygons even though it was a manual task
+
+* Here I am just showing formulas with sin and tan for illustration
   
 * As you refine your polygons and increase the number of sides, you inch closer and closer to the value of pi. 
   
