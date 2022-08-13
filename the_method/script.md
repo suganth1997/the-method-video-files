@@ -64,11 +64,11 @@
   
 * Here what he shows is that, a single triangle in the second step of subdivision has an area which is one eigth of the triangle from the previous step. 
   
-* With this we can construct a series to calculate the area of the parabola as the infinite subdivided triangles cover the parabolc segment completely. 
+* This way if we continue to divide the parabola into triangles, we end up with an infinite series and this infinite sum would give the area of the parabola.
   
-* With this we can see it's a simple manipulation and we have the area of parabola in terms of the area of the inscribed triangle, and the Greeks knew the area of triangles as half base into height.
+* Computing this infinite sum with a manipulation trick, we have the area of parabola in terms of the area of the inscribed triangle, and calculating area of triangles was known as half base into height.
   
-* Even after figuring this out, he did not stop there, he wanted to apply his most elegant reasonings to this problem of area of parabola, which we will see in the so called 'The Method'.
+* Next we will actually move on to 'The Method' which is again to calculate the area of the parabola.
 
 ## The Method
 `the method -- parabola`
