@@ -1,7 +1,4 @@
-from math import cos, sin, sqrt, tan, atan, pi
-from random import triangular
-from typing_extensions import runtime
-from click import style
+from math import sqrt
 from manim import *
 
 class ParabolaPlot(MovingCameraScene):
@@ -204,21 +201,33 @@ class ParabolaPlot(MovingCameraScene):
 
         self.play(Write(the_method_text), Create(parabola_graph), Create(line_parabola), self.camera.frame.animate.scale(3).move_to([-8, 6, 0]), Create(tangent_line), Create(left_vertex_axis), Create(mid_axis), Create(any_line_prl_axis), Create(AB_line), Create(BC_line), Create(BK_line), Create(A_dot), Create(A_text), Create(C_dot), Create(C_text), Create(B_dot), Create(B_text), Create(D_dot), Create(D_text), Create(E_dot), Create(E_text), Create(F_dot), Create(F_text), Create(O_dot), Create(O_text), Create(M_dot), Create(M_text), Create(P_dot), Create(P_text), Create(N_dot), Create(N_text), Create(K_dot), Create(K_text), Create(HK_line), Create(H_dot), Create(H_text))
 
-        self.play(b.animate(run_time=4).set_value(0.75))
-
-        self.play(b.animate(run_time=4).set_value(0.25))
+        self.play(b.animate(run_time=2).set_value(0.75))
 
         self.play(Write(ratio_relation))
 
+        self.play(b.animate(run_time=4).set_value(0.25))
+
+        self.wait(2)
+        
         self.play(Write(fulcrum_lever_text))
+
+        self.wait(2)
 
         self.play(Create(area))
 
+        self.wait(2)
+
         self.play(area.animate.move_to(H_dot.get_center()))
 
+        self.wait(2)
+
         self.play(Create(area_triangle))
+
+        self.wait(2)
 
         self.play(Write(area_fulcrum_text_final))
 
         self.wait(4)
+
+        self.wait(55)
         

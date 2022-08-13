@@ -1,7 +1,4 @@
-from math import cos, sin, sqrt, tan, atan, pi
-from random import triangular
-from typing_extensions import runtime
-from click import style
+from math import sqrt
 from manim import *
 
 class ParabolaPlot(MovingCameraScene):
@@ -695,4 +692,4 @@ class ParabolaPlot(MovingCameraScene):
         
         # self.play(Create(parabola_basic_diag))
         
-        self.wait(4)
+        self.wait(8)

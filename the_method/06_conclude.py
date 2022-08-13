@@ -17,3 +17,4 @@ class ConcludeScene(Scene):
 
         self.play(Write(archimedes_name))
 
+        self.wait(10)
