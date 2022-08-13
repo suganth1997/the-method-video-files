@@ -116,7 +116,7 @@ So this would apply to any section of the parabola, and hence if we consider eve
   
 * I have modified the base accordingly for construction but the area is the same. 
   
-* With this setup we could clearly see that it will be in balance when we hinge it at the centroid, 
+* With this setup we could intuitively say that it will be in balance when we hinge it at the centroid, 
   
 * which is also true as if we distribute uniform mass over the triangle, the centroid would be its center of gravity, 
   
