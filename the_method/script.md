@@ -1,17 +1,17 @@
 ## Introduction
 `quote and picture rolls in`
 
-* Hello everyone, welcome to my video, here I would like to talk about a method from one of the greatest ancient mathematicians, engineer, scientist and what not, Archimedes. 
+* Hey guys, welcome to my video, here I would like to talk about a method from one of the greatest ancient mathematicians, engineer, scientist and what not, Archimedes. 
 
-* This method of archimedes which in itself called "The Method" is the most elegant one I have seen for any problem and I believe it would be a great example of how perspectives can help us solve the unsolved.
+* This method of archimedes which in itself called "The Method" is really an elegant one and I believe it would be a great example of how perspectives can help us solve the unsolved.
 
 `law of levers`
 
-* Ofcourse Archimedes lived in the ancient Greece, his time comes after Euclid and even he cites from Euclid elements in his works. 
+* But before that, a little about Archimedes, he lived in the ancient Greece, his time comes after Euclid and he even refers to Euclid elements in his works. 
   
-* He lived in the city of Syracuse and is said to have a hunger for knowledge and has helped the Greek kings in the wars. 
+* He lived in the city of Syracuse and is said to have a hunger for knowledge and has helped the kings in wars. 
   
-* When the Romans invaded syracuse, which by the time Archimedes have figures out the law of levers with which he had helped develop catapults and weapons to help the destroy Roman ships.
+* When the Romans invaded syracuse, which by the time Archimedes have figured out the law of levers with which he had helped develop catapults and weapons to help destroy Roman ships.
 
 `law of buoyancy`
 
@@ -54,9 +54,9 @@
 
 `area of parabola`
 
-* The so called 'The Method' is actually a method he came up with to calculate the area of the parabola, infact he had multiple approaches to calculate this, we will see one such approach and then move on to 'The Method', the reason I want to show this is because to emphasize how he had chopped his problems into small chunks and combined them in brilliant ways to solve the actual problem, which is infact what integration is, harnessing the infinity.
+* The so called 'The Method' is actually a method he came up with to calculate the area of the parabolic segment, can be any segment, infact he had multiple approaches to calculate this, we will see one such approach and then move on to 'The Method', the reason I want to show this is because to emphasize how he had chopped his problems into small chunks and combined them in brilliant ways to solve the actual problem, which is infact what integration is, harnessing the infinity.
   
-* So we take a parabolic segment, any segment and first construct a triangle by joining the ends of the parabolic segment and a point on the parabola. 
+* So we take the parabolic segment, and first construct a triangle by joining the ends of the parabolic segment and a point on the parabola. 
   
 * The way we choose this point is by taking the line segment closing the parabola and seeing which point on the parabola has a tangent parallel to it. 
   
@@ -68,7 +68,7 @@
   
 * Computing this infinite sum with a manipulation trick, we have the area of parabola in terms of the area of the inscribed triangle, and calculating area of triangles was known as half base into height.
   
-* Next we will actually move on to 'The Method' which is again to calculate the area of the parabola.
+* This was one method and now we will actually move on to 'The Method' which is again to calculate the area of the parabola.
 
 ## The Method
 `the method -- parabola`
