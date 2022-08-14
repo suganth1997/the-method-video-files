@@ -201,15 +201,41 @@ class PiWithPolygon(ZoomedScene):
         
         self.play(Create(parabola_graph))
 
-        for triangle_line in triangle_lines_obj[0:1]:
-            triangle_create = []
-            for line in triangle_line:
-                triangle_create.append(Create(line))
+        self.play(Create(triangle_lines_obj[0][0]))
 
-            self.play(*triangle_create)
+        # parabola_graph_segment_group = VGroup(parabola_graph, triangle_lines_obj[0][0])
 
-        self.wait(20)
+        def parabola_graph_updater(x):
+            parabola_graph = axes.get_graph(lambda x: f(x), color=YELLOW, x_range=[x1_, x2_, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/2)
 
+            triangle_lines_obj, areas, triangle_lines = get_parabola_triangles()
+
+            parabola_graph_segment = VGroup(parabola_graph, triangle_lines_obj[0][0])
+
+            x.become(parabola_graph)
+
+        def parabola_graph_line_updater(x):
+            parabola_graph = axes.get_graph(lambda x: f(x), color=YELLOW, x_range=[x1_, x2_, 0.01], stroke_width=DEFAULT_STROKE_WIDTH/2)
+
+            triangle_lines_obj, areas, triangle_lines = get_parabola_triangles()
+
+            parabola_graph_segment = VGroup(parabola_graph, triangle_lines_obj[0][0])
+
+            x.become(triangle_lines_obj[0][0])
+
+        parabola_graph.add_updater(parabola_graph_updater)
+        triangle_lines_obj[0][0].add_updater(parabola_graph_line_updater)
+
+        self.play(m_base.animate(run_time=4).set_value(0.25))
+
+        self.wait(12)
+
+        self.play(m_base.animate(run_time=4).set_value(0.0))
+
+        parabola_graph.remove_updater(parabola_graph_updater)
+        triangle_lines_obj[0][0].remove_updater(parabola_graph_line_updater)
+
+        return
         for triangle_line in triangle_lines_obj[1:2]:
             triangle_create = []
             for line in triangle_line:
@@ -335,6 +361,6 @@ class PiWithPolygon(ZoomedScene):
 
         # parabola_triangles_group.add_updater(parabola_updater)
 
-        self.wait(4)
+        self.wait(7)
 
         # self.play(c_base.animate.set_value(0.5))

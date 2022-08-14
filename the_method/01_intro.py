@@ -64,48 +64,60 @@ class IntroScene(MovingCameraScene):
 
         self.play(Unwrite(archimedes_quote_1), Unwrite(archimedes_quote_2), Unwrite(archimedes_name), run_time=10)
 
-        self.play(archimedes.animate.to_corner(UP + RIGHT), run_time=10)
+        self.play(archimedes.animate.to_corner(UP + RIGHT), run_time=4)
 
-        self.play(Create(fulcrum), Create(center), run_time=2.5)
+        self.wait(6)
+
+        self.play(Create(fulcrum), Create(center), run_time=1)
 
         # self.play(Create(lever), Create(center), Create(left_circle), Create(right_circle))
 
-        self.play(Create(lever_and_all), run_time=2.5)
+        self.play(Create(lever_and_all), run_time=1)
 
-        self.play(lever_and_all.animate(run_time=2.5).rotate(PI/12, about_point=center.get_center()))
+        self.wait(3)
 
-        self.play(lever_and_all.animate(run_time=2.5).shift(RIGHT + tan(PI/12)*UP))
+        self.play(lever_and_all.animate(run_time=1).rotate(PI/12, about_point=center.get_center()))
 
-        self.play(lever_and_all.animate(run_time=2.5).rotate(-PI/12, about_point=center.get_center()))
+        self.play(lever_and_all.animate(run_time=1).shift(RIGHT + tan(PI/12)*UP))
 
-        self.play(Create(lever_law), fulcrum_and_lever.animate.shift((LEFT+UP)*2.25), run_time=2.5)
+        self.play(lever_and_all.animate(run_time=1).rotate(-PI/12, about_point=center.get_center()))
 
-        self.play(Create(cup), run_time=2)
+        self.play(Create(lever_law), fulcrum_and_lever.animate.shift((LEFT+UP)*2.25), run_time=1)
 
-        self.play(Create(water_level), Create(water_level_), Create(circle_ball), run_time=2)
+        self.wait(5)
 
-        self.play(circle_ball.animate.move_to(DOWN*3/4), run_time=2)
+        self.play(Create(cup), run_time=1)
 
-        self.play(water_level.animate.shift(UP*0.2), run_time=2)
+        self.play(Create(water_level), Create(water_level_), Create(circle_ball), run_time=1)
+
+        self.wait(2)
+
+        self.play(circle_ball.animate.move_to(DOWN*3/4), run_time=1)
+
+        self.play(water_level.animate.shift(UP*0.2), run_time=1)
+
+        self.wait(2)
 
         self.play(Create(eureka), run_time=2)
 
         self.wait(10)
 
-        self.play(Create(buoyance_law), cup_water_setup.animate.next_to(buoyance_law, DOWN*1.5 + 0.25*RIGHT), run_time=10)
+        self.play(Create(buoyance_law), cup_water_setup.animate.next_to(buoyance_law, DOWN*1.5 + 0.25*RIGHT), run_time=2)
 
-        self.play(FadeIn(archimedes_works), run_time=2.5)
+        self.wait(8)
 
-        self.wait(7.5)
+        self.play(FadeIn(archimedes_works), run_time=2)
 
-        self.play(Create(geometry_text), run_time=2.5)
+        self.wait(8)
 
-        self.play(Create(geometry_1), run_time=2.5)
+        self.play(Create(geometry_text), run_time=1)
 
-        self.play(Create(geometry_2), run_time=2.5)
+        self.play(Create(geometry_1), run_time=1)
 
-        self.play(Create(geometry_3), run_time=2.5)
+        self.play(Create(geometry_2), run_time=1)
 
-        self.wait(20)
+        self.play(Create(geometry_3), run_time=1)
+
+        self.wait(23)
 
         
